@@ -1,0 +1,24 @@
+.mySwiper {
+  width: 100%;
+  height: 50vh; /* 50% of the viewport height */
+  margin: 0 auto;
+  margin-bottom: 20px;
+  box-shadow: 0 3px 8px rgba(16, 42, 5, 0.7);
+
+
+  @media (max-width: 768px) {
+    height: 300px; /* Adjust height for tablets */
+  }
+
+  @media (max-width: 576px) {
+    height: 200px; /* Adjust height for mobiles */
+  }
+
+  .swiper-slide {
+      img {
+          width: 100%; /* Garante que a imagem ocupe todo o slide */
+          height: max-content; /* Mantém a proporção da imagem */
+          object-fit: contain; /* Alterado para garantir que toda a imagem seja visível */
+      }
+  }
+}

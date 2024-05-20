@@ -1,0 +1,38 @@
+.Rodape {
+    margin-top: 2.7rem;
+    background-color: #103f1f;
+    color: #fff;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    align-items: center;
+
+    ul {
+        padding: 0;
+
+        li {
+            display: inline-block;
+            margin: 0 5px;
+
+            a {
+                width: 36px;
+                height: 36px;
+                display: inline-block;
+                text-align: center;
+                line-height: 36px;
+                background-color: #fff;
+                border-radius: 50%;
+                color: #363e50; 
+                text-decoration: none; /* Removido o aspecto de link */
+
+                transition: transform 0.2s ease-in-out;
+            }
+
+            a:hover {
+                transform: scale(1.1);
+                color: #103f1f; 
+                background-color: #ffffff;
+            }
+        }
+    }
+}

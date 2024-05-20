@@ -1,0 +1,45 @@
+.CadastroAdmContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    width: 50vw;
+    border-radius: 10px; /* Arredondamento */
+    background-color: #f0f0f0; /* Cor de fundo */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.25); /* Sombra */
+  }
+  
+  .formContainer {
+    background-color: #fff; /* Cor do formulário */
+    padding: 30px;
+    border-radius: 10px; /* Arredondamento */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 30px;
+  }
+ 
+  .alertaSucesso {
+    background-color: #4CAF50; /* Verde */
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  .alertaErro {
+    background-color: #F44336; /* Vermelho */
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  

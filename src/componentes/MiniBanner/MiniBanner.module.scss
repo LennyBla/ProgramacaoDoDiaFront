@@ -1,0 +1,44 @@
+.MiniBanners {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    /* Styles for tablets (adjust as needed) */
+    flex-direction: column; /* Stack banners vertically */
+    .CardCentral {
+      margin: 1rem 0; /* Adjust spacing for smaller screens */
+    }
+  }
+
+  @media (max-width: 576px) {
+    /* Styles for mobiles (adjust as needed) */
+    .CardCentral h2 {
+      max-width: 100%; /* Allow full width for title on mobiles */
+    }
+  }
+
+    img {
+        max-height: 185px;
+    }
+
+    .CardCentral {
+        background-color: #f2745f;
+        text-align: center;
+        padding: 20px;
+        color: #FFF;
+
+        h2 {
+            max-width: 70%;
+            display: inline-block;
+        }
+
+        a {
+            text-decoration: none;
+            color: #631406;
+            font-weight: bold;
+        }
+    }
+}

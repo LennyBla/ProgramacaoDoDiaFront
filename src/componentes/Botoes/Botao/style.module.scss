@@ -1,0 +1,40 @@
+.botao {
+  text-decoration: none;
+  background-color: #FF6766;
+  color: #ededed;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  display: block; 
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.30);
+
+  transition: transform 0.2s ease-in-out;
+}
+
+.botao:hover {
+  transform: scale(1.1);
+}
+
+.btn button {
+  text-decoration: none;
+}
+
+.btn a {
+  text-decoration: none; 
+}
+
+.btn {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  text-decoration: none;
+
+  @media (max-width: 576px) {
+    padding: 5px 10px; 
+    font-size: 0.8rem; 
+  }
+}

@@ -1,0 +1,27 @@
+.item {
+    border-radius: 5px;
+    margin: 20px 0;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+  
+    h3 {
+      color: #343a40;
+      font-size: 1.5em;
+      margin-bottom: 10px;
+      grid-column: span 4; 
+    }
+  
+    p {
+      color: #6c757d;
+      font-size: 1em;
+      line-height: 1.5;
+      margin-bottom: 0px;
+  
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+  

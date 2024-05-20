@@ -1,0 +1,39 @@
+.responsaveis {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.tiasContainer {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.Tia {
+    display: flex;
+    justify-content: space-around;
+     flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    /* Styles for tablets (adjust as needed) */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+  }
+
+  @media (max-width: 576px) {
+    /* Styles for mobiles (adjust as needed) */
+    .Tia {
+      margin-top: 1rem; /* Reduce spacing on smaller screens */
+    }
+  }
+
+    h3 {
+        margin-top: 0;
+    }
+
+    img {
+        max-width: 50%;
+        border-radius: 50%;
+        overflow: hidden;
+    }
+}

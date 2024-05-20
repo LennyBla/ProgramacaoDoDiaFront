@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centraliza horizontalmente */
+  justify-content: center; /* Centraliza verticalmente */
+  height: 100vh; /* Define a altura para ocupar toda a altura da tela */
+}
+
+.imageContainer {
+  margin-top: 30px; /* Adiciona um espaçamento superior para a imagem */
+}
+
+.image {
+  width: 400px; /* Define a largura da imagem */
+  height: auto; /* Mantém a proporção da imagem */
+}
