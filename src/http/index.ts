@@ -2,11 +2,13 @@ import axios from "axios";
 import Cookies from 'js-cookie';
 
 const httpV1 = axios.create({
-    baseURL: 'http://localhost:8000/api/v1/'
+    baseURL: 'https://programacaododia-back.vercel.app/api/v1/'
+    ///baseURL: 'http://localhost:8000/api/v1/'
 });
 
 const httpV2 = axios.create({
-    baseURL: 'http://localhost:8000/api/v2/',
+    //baseURL: 'http://localhost:8000/api/v2/',
+    baseURL: 'https://programacaododia-back.vercel.app/api/v2/',
     withCredentials: true
 });
 
