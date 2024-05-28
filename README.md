@@ -31,3 +31,6 @@ Depois, acesse <a href="http://localhost:3000/">http://localhost:3000/</a> no se
 ## 📚 Mais informações do curso
 
 Busque na plataforma da Alura o curso **Integrando seu projeto React com APIs** publicado na Escola Frontend.
+https://vercel.com/docs/rest-api/errors
+
+https://programacaodo-dia.vercel.app/  
