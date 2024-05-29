@@ -34,7 +34,7 @@ function App() {
         <Botao classe={styles.botao} onClick={handleCadastro}>Cadastre-se</Botao>
       </Link>
       <div className={StylesGlobal.logo}>
-        <h1>Nossa Recreação</h1>
+        <h1>Nossa Recreação (Logo) </h1>
       </div>
       <Card cardColorClass={styles.Card} />
     

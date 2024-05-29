@@ -34,7 +34,6 @@ const Card: React.FC<CardProps> = ({ cardColorClass }) => {
 
   return (
     <aside className={styles.Card}>
-      <h1 className={styles.titulo}>Lista de <span>Cards</span></h1>
       <ul>
         {cards.map((card, index) => (
           <div key={card.id}>
