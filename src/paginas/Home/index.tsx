@@ -37,8 +37,7 @@ function App() {
         <h1>Nossa Recreação</h1>
       </div>
       <Card cardColorClass={styles.Card} />
-      <MiniBanner />
-      <Responsaveis />
+    
       <Link to='/cadastro' className={styles.btn}>
         <Botao classe={styles.botao} onClick={handleCadastro}>Cadastre-se</Botao>
       </Link>
@@ -46,5 +45,7 @@ function App() {
     </>
   );
 }
+//  <MiniBanner />
+//<Responsaveis />
 
 export default App;
