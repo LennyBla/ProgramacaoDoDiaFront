@@ -4,9 +4,9 @@
   align-items: center;
   justify-content: center;
   margin-top: 10px;
-  height: auto; /* Ajuste a altura para auto */
-  width: 90vw; /* Ajuste para responsividade */
-  max-width: 400px; /* Limite máximo para telas grandes */
+  height: auto; 
+  width: 90vw; 
+  max-width: 400px; 
   border-radius: 10px;
   background-color: #f0f0f0;
   position: absolute;
@@ -14,21 +14,12 @@
   left: 50%;
   transform: translate(-50%, -50%);
   box-shadow: 0 0px 10px rgba(0, 0, 0, 0.25);
-  padding: 20px; /* Espaçamento interno para melhor visualização */
-
+  padding: 50px;
 
     @media (max-width: 768px) {
-      padding: 20px; /* Adjust padding for smaller screens */
-      h1 { font-size: 24px; } /* Adjust font size for mobiles */
+      padding: 20px; 
+      h1 { font-size: 24px; } 
     }
-  }
-  
-  .formContainer {
-    background-color: #e4fdde;
-    padding: 30px;
-    border-radius: 10px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
-    
   }
   
   h1 {
@@ -38,7 +29,7 @@
   }
 
   .alertaSucesso {
-    background-color: #4CAF50; /* Verde */
+    background-color: #4CAF50; 
     color: white;
     padding: 10px;
     border-radius: 5px;
@@ -46,14 +37,27 @@
   }
   
   .alertaErro {
-    background-color: #F44336; /* Vermelho */
+    background-color: #F44336;
     color: white;
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 20px;
   }
 
-  
-  .Botao{
-    margin-bottom: 20px;
+  .botao {
+    text-decoration: none;
+    background-color: #FF6766;
+    color: #ededed;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    display: block;
+    margin: 0 auto; 
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.30);
+    margin-top: 20px;  
+    transition: transform 0.2s ease-in-out;
   }
+  
