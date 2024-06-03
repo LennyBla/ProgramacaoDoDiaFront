@@ -4,7 +4,6 @@ import Botao from '../../../../componentes/Botoes/Botao/Button';
 import CampoDigitacao from '../../Campo/Digite';
 import usePost from '../../../../hook/usePost';
 import autenticaStore from '../../../../stores/autentica.store';
-import stylesGlobal from '../../../../Global.module.scss';
 import styles from './Login.module.scss';
 
 function Login() {
@@ -45,7 +44,7 @@ function Login() {
                 </div>
             )}
             <form onSubmit={handleSubmit}>
-                <h1 className={stylesGlobal.Titulo}>Login</h1>
+                <h1 className={styles.Titulo}>Login</h1>
                 <div>
                     <CampoDigitacao
                         valor={username}
