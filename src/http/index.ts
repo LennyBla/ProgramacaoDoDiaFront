@@ -3,12 +3,10 @@ import Cookies from 'js-cookie';
 import autenticaStore from '../stores/autentica.store';
 
 const httpV1 = axios.create({
-    baseURL: 'https://programacaododia-back.vercel.app/api/v1/'
-    ///baseURL: 'http://localhost:8000/api/v1/'
+    baseURL: 'https://programacaododia-back.vercel.app/api/v1/',
 });
 
 const httpV2 = axios.create({
-    //baseURL: 'http://localhost:8000/api/v2/',
     baseURL: 'https://programacaododia-back.vercel.app/api/v2/',
     withCredentials: true
 });
@@ -24,15 +22,12 @@ httpV2.interceptors.request.use((config) => {
         config.headers['Authorization'] = `Bearer ${token}`;
     }
 
-    try {
-        const csrfToken = Cookies.get('csrftoken');
-        if (csrfToken) {
-            config.headers['X-CSRFToken'] = csrfToken;
-        } else {
-            console.error('CSRF token is missing');
-        }
-    } catch (error) {
-        console.error('Error retrieving CSRF token:', error);
+    // Set CSRF token
+    const csrfToken = Cookies.get('csrftoken');
+    if (csrfToken) {
+        config.headers['X-CSRFToken'] = csrfToken;
+    } else {
+        console.error('CSRF token is missing');
     }
 
     return config;
