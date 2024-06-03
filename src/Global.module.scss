@@ -1,3 +1,5 @@
+//definir uma fonte
+//este é o Global styles - Global.modules.scss
 body {
   margin: 0;
   font-family: "Montserrat", sans-serif;
@@ -16,22 +18,22 @@ h1 {
   
   .Input {
     background-color: #F0f0f0;
-    margin: 20px;
-    margin-bottom: 1px;
+    margin: 10px;
     box-sizing: border-box;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
-    border: 2px solid transparent; // Adiciona uma borda transparente por padrão
+    border: 2px solid transparent;
     width: 100%;
-    padding: 12px;
+    padding: 10px;
+    margin-bottom: 20px;
 }
 
 .InputErro {
-    border-color: red; // Adiciona uma borda vermelha quando há erro
+    border-color: red; 
 }
 
 .InputSucesso {
-    border-color: green; // Adiciona uma borda verde quando não há erro
+    border-color: green; 
 }
 .MensagemErro {
   color: red; // Cor do texto vermelho para indicar erro
@@ -52,7 +54,7 @@ h1 {
   font-weight: 700;
   font-size: 24px;
   line-height: 28px;
-  width: 100%; /* Torna o título tão largo quanto o contêiner pai */
+  width: 100%; 
 }
 .LogoHotel {
   justify-content: center;
