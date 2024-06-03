@@ -1,22 +1,23 @@
 /* Arquivo Login.module.scss */
 
 .CadastroContainer {
-    display: flex;
-    margin-top: 10px;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 90vh;
-    width: 60vw;
-    border-radius: 10px; /* Arredondamento */
-    background-color: #f0f0f0; /* Cor de fundo */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.25); /* Sombra */
-
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  height: auto; /* Ajuste a altura para auto */
+  width: 90vw; /* Ajuste para responsividade */
+  max-width: 600px; /* Limite máximo para telas grandes */
+  border-radius: 10px;
+  background-color: #f0f0f0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.25);
+  padding: 20px; /* Espaçamento interno para melhor visualização */
+}
   
   .formContainer {
     background-color: #fff; /* Cor do formulário */
@@ -50,4 +51,13 @@
     border-radius: 5px;
     margin-bottom: 20px;
   }
+  .LogoHotel1 {
+    justify-content: center;
+    align-items: center;
+    margin-top: 300px;
+  }
   
+  .LogoHotel1 img {
+    max-width: 400px; /* Defina a largura máxima desejada */
+    height: auto; /* Mantém a proporção original da imagem */
+  }

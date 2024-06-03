@@ -1,5 +1,3 @@
-//definir uma fonte
-//este é o Global styles - Global.modules.scss
 body {
   margin: 0;
   font-family: "Montserrat", sans-serif;
@@ -15,6 +13,7 @@ h1 {
     margin-bottom: 24px;
     text-align: center;
   }
+  
   .Input {
     background-color: #F0f0f0;
     margin: 20px;
@@ -40,20 +39,53 @@ h1 {
   margin-top: 2px;// Espaçamento superior para separar a mensagem do campo de entrada
 }
 
-.Rotulo{
+.Rotulo {
   display: block;
   font-weight: 600;
   font-size: 16px;
   line-height: 19%;
   margin-top: 20px;
+  width: 100%; /* Torna o rótulo tão largo quanto o contêiner pai */
 }
 
-//falta a logo a cima do Login, Cadastro adm, cadastro kid
-
-.Titulo{
+.Titulo {
   font-weight: 700;
   font-size: 24px;
   line-height: 28px;
-  color: var(--cinza);
+  width: 100%; /* Torna o título tão largo quanto o contêiner pai */
+}
+.LogoHotel {
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
 
+.LogoHotel img {
+  max-width: 400px; /* Defina a largura máxima desejada */
+  height: auto; /* Mantém a proporção original da imagem */
+}
+
+.Logo {
+  display: flex;
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+  margin: 20px 0; /* Espaçamento superior e inferior */
+}
+
+.Logo img {
+  max-width: 100px; /* Tamanho máximo para dispositivos pequenos */
+  height: auto; /* Mantém a proporção da imagem */
+}
+
+@media (min-width: 768px) {
+  .Logo img {
+    max-width: 250px; /* Aumenta o tamanho da logo em tablets */
+  }
+}
+
+/* Ajuste para desktops */
+@media (min-width: 1024px) {
+  .Logo img {
+    max-width: 400px; /* Aumenta o tamanho da logo em desktops */
+  }
 }

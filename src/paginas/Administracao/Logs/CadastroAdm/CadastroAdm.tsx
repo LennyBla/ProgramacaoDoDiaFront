@@ -38,15 +38,6 @@ function CadastroAdm() {
             setEmailErro(false);
         }
 
-        // Validar senha
-        const senhaForteRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
-        if (!senhaForteRegex.test(password)) {
-            setPasswordErro(true);
-            return;
-        } else {
-            setPasswordErro(false);
-        }
-
         const userData: ICadastroAdm = {
             username: username,
             email: email,

@@ -1,4 +1,5 @@
 import { makeObservable, observable, action } from "mobx";
+import { httpV2 } from '../http'
 
 interface IUsuario {
     username: string;
@@ -17,7 +18,6 @@ class AutenticaStore {
             logout: action
         });
 
-        // Inicializa a autenticação com base nos dados armazenados
         this.initializeAuth();
     }
 
