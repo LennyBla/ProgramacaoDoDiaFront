@@ -62,7 +62,7 @@ function Login() {
                     />
                 </div>
                 <div>
-                    <Botao tipo="submit">Entrar</Botao>
+                  <Botao classe ={styles.botao} tipo="submit">Entrar</Botao>
                 </div>
             </form>
         </div>
