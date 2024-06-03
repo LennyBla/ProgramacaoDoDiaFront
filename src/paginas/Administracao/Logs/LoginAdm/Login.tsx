@@ -12,22 +12,18 @@ function Login() {
     const [password, setPassword] = useState<string>('');
     const [alerta, setAlerta] = useState<{ tipo: 'sucesso' | 'erro'; mensagem: string } | null>(null);
     const { cadastrarDados, resposta, erro } = usePost();
-    //const [isLoading, setIsLoading] = useState<boolean>(false);
     const navigate = useNavigate();
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const userData = { username, password };
-        //  setIsLoading(true);
         await cadastrarDados({ url: "/login/", dados: userData });
     };
-    
+
     useEffect(() => {
         if (resposta?.token) {
-            localStorage.setItem('token', resposta.token);
             autenticaStore.login({ username, token: resposta.token });
-            setAlerta({ tipo: 'sucesso', mensagem: 'Entrando ...' }); //fazer uma animação de carregamento
-            //setIsLoading(false);
+            setAlerta({ tipo: 'sucesso', mensagem: 'Entrando ...' });
             setTimeout(() => {
                 setAlerta(null);
                 navigate('/admin/');
@@ -35,14 +31,11 @@ function Login() {
         }
         if (erro) {
             setAlerta({ tipo: 'erro', mensagem: erro });
-            //setIsLoading(false);
             setTimeout(() => {
                 setAlerta(null);
             }, 3000);
         }
     }, [resposta, erro, username, navigate]);
-
-
 
     return (
         <div className={styles.LoginContainer}>
@@ -70,7 +63,6 @@ function Login() {
                     />
                 </div>
                 <div>
-                    {/*{isLoading && <Loading />}*/}
                     <Botao tipo="submit">Entrar</Botao>
                 </div>
             </form>
