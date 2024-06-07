@@ -1,14 +1,12 @@
-/* Arquivo Login.module.scss */
-
 .CadastroContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   margin-top: 10px;
-  height: auto; /* Ajuste a altura para auto */
-  width: 90vw; /* Ajuste para responsividade */
-  max-width: 600px; /* Limite máximo para telas grandes */
+  height: auto; 
+  width: 90vw;
+  max-width: 500px; 
   border-radius: 10px;
   background-color: #f0f0f0;
   position: absolute;
@@ -16,48 +14,59 @@
   left: 50%;
   transform: translate(-50%, -50%);
   box-shadow: 0 0px 10px rgba(0, 0, 0, 0.25);
-  padding: 20px; /* Espaçamento interno para melhor visualização */
+  padding: 20px; 
+  
+  @media (max-width: 768px) {
+    padding: 20px;
+    h1 {
+      font-size: 24px;
+    }
+  }
 }
   
-  .formContainer {
-    background-color: #fff; /* Cor do formulário */
-    padding: 30px;
-    border-radius: 10px; /* Arredondamento */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
-  }
   .voltar {
-    position: absolute; /* Position button absolutely */
-    top: 30px; /* Margin from top */
-    left: 30px; /* Margin from left */
+    position: absolute;
+    top: 30px; 
+    left: 30px;
   }
-  
-  h1 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .alertaSucesso {
-    background-color: #4CAF50; /* Verde */
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-  }
-  
-  .alertaErro {
-    background-color: #F44336; /* Vermelho */
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-  }
-  .LogoHotel1 {
+
+  .logoContainer {
+    top: 0; 
+    left: 50%; 
+    transform: translateX(-50%);
+    width: 300px;
+    height: auto;
+    display: flex;
     justify-content: center;
-    align-items: center;
-    margin-top: 300px;
+    align-items: center; 
+    position: relative; 
+    top: -0px;
+    margin-bottom: 20px;
   }
   
-  .LogoHotel1 img {
-    max-width: 400px; /* Defina a largura máxima desejada */
-    height: auto; /* Mantém a proporção original da imagem */
+  .logoContainer img {
+    max-width: 100%;
+    height: auto; 
+  }
+  
+  .Titulo{
+    text-align: center;
+    font-size: 30px;
+  }
+  
+  .botao {
+    text-decoration: none;
+    background-color: #FF6766;
+    color: #ededed;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    display: block;
+    margin: 0 auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.30);
+    margin-top: 20px;
+    transition: transform 0.2s ease-in-out;
   }

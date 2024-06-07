@@ -1,4 +1,6 @@
 import React, { useState, useEffect, FormEvent } from "react";
+import { toast, ToastContainer, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { httpV1 } from "../../../../http";
 import Botao from "../../../../componentes/Botoes/Botao/Button";
 import { Ikid } from "../../../../interfaces/Ikid";
@@ -6,6 +8,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import StylesGlobal from '../../../../Global.module.scss'
 import CampoDigitacao from "../../Campo/Digite";
 import styles from './Cadastro.module.scss'
+import LogoCataratas from '../../../../asset/cataratasparkhotel.png';
 
 function Cadastro() {
     const navigate = useNavigate();
@@ -21,9 +24,11 @@ function Cadastro() {
     const [alerta, setAlerta] = useState<{ tipo: 'sucesso' | 'erro'; mensagem: string } | null>(null);
 
     useEffect(() => {
-        if (parametros.id) {
-            httpV1.get<Ikid>(`cadastro-kids/${parametros.id}/`)
-                .then(resposta => {
+        const abortController = new AbortController();
+        const fetchData = async () => {
+            if (parametros.id) {
+                try {
+                    const resposta = await httpV1.get<Ikid>(`cadastro-kids/${parametros.id}/`, { signal: abortController.signal });
                     setNomeKid(resposta.data.nome);
                     setIdadeKid(String(resposta.data.idade));
                     setResponsaveisKid(resposta.data.responsaveis);
@@ -32,8 +37,18 @@ function Cadastro() {
                     setEmail(resposta.data.email);
                     setNumeroApartamento(resposta.data.numeroApartamento);
                     setHorarioCheckout(resposta.data.horarioCheckout.slice(0, 16));
-                });
-        }
+                } catch (error) {
+                    if (!abortController.signal.aborted) {
+                        console.error('Erro ao buscar dados', error);
+                    }
+                }
+            }
+        };
+        fetchData();
+
+        return () => {
+            abortController.abort();
+        };
     }, [parametros]);
 
     const handleSubmit = async (evento: FormEvent<HTMLFormElement>) => {
@@ -59,12 +74,14 @@ function Cadastro() {
                 await httpV1.post('cadastro-kids/', dataToSend);
             }
             setAlerta({ tipo: 'sucesso', mensagem: 'Cadastrado com sucesso!' });
+            toast.success('Sucesso!');
             setTimeout(() => {
                 setAlerta(null);
                 navigate(-1);
             }, 3000);
         } catch (error) {
             setAlerta({ tipo: 'erro', mensagem: 'Erro ao cadastrar. Por favor, tente novamente.' });
+            toast.error(`Erro de login: ${error}`);
             setTimeout(() => {
                 setAlerta(null);
             }, 3000);
@@ -72,7 +89,6 @@ function Cadastro() {
     };
 
     return (
-        
         <div className={styles.CadastroContainer}>
             {alerta && (
                 <div className={alerta.tipo === 'sucesso' ? styles.alertaSucesso : styles.alertaErro}>
@@ -80,6 +96,10 @@ function Cadastro() {
                 </div>
             )}
             <form onSubmit={handleSubmit}>
+                <div className={styles.logoContainer}>
+                    <img src={LogoCataratas} alt="Cataratas Park Hotel Logo" />
+                </div>
+
                 <h1 className={StylesGlobal.Titulo}>Cadastre a Criança</h1>
 
                 <div>
@@ -141,7 +161,7 @@ function Cadastro() {
                     />
                 </div>
 
-                <Botao classe={styles.btn} tipo="submit" >Cadastrar</Botao>
+                <Botao classe={styles.botao} tipo="submit">Cadastrar</Botao>
             </form>
         </div>
     );
