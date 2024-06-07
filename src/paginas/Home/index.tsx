@@ -9,7 +9,7 @@ import Slide from '../../componentes/Slide/Slide';
 import MiniBanner from '../../componentes/MiniBanner/MiniBanner';
 import Botao from './../../componentes/Botoes/Botao/Button';
 import StylesGlobal from '../../Global.module.scss'
-
+import LogoRecreacao from '../../asset/confiranossaprogramao.png'
 
 function App() {
   const [atualizarPagina, setAtualizarPagina] = useState(false);
@@ -30,17 +30,10 @@ function App() {
     <>
       <NavBar />
       <Slide />
-      <Link to='/cadastro' className={styles.btn}>
-        <Botao classe={styles.botao} onClick={handleCadastro}>Cadastre-se</Botao>
-      </Link>
-      <div className={StylesGlobal.logo}>
-        <h1>Nossa Recreação (Logo) </h1>
-      </div>
+      <div className={styles.logoContainer}>
+        <img src={LogoRecreacao} alt="Cataratas Park Hotel Logo" />
+       </div>
       <Card cardColorClass={styles.Card} />
-    
-      <Link to='/cadastro' className={styles.btn}>
-        <Botao classe={styles.botao} onClick={handleCadastro}>Cadastre-se</Botao>
-      </Link>
       <Rodape />
     </>
   );
