@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Botao from '../../../../componentes/Botoes/Botao/Button';
 import CampoDigitacao from '../../Campo/Digite';
 import usePost from '../../../../hook/usePost';
 import autenticaStore from '../../../../stores/autentica.store';
 import styles from './Login.module.scss';
+import LogoCataratas from '../../../../asset/cataratasparkhotel.png';
 
 function Login() {
     const [username, setUsername] = useState<string>('');
@@ -21,8 +24,11 @@ function Login() {
 
     useEffect(() => {
         if (resposta?.token) {
-            autenticaStore.login({ username, token: resposta.token });
+            const expirationTime = Date.now() + 3600 * 1000;
+            autenticaStore.login({ username, token: resposta.token, expirationTime });
+
             setAlerta({ tipo: 'sucesso', mensagem: 'Entrando ...' });
+            toast.success('Login bem-sucedido! Entrando ...');
             setTimeout(() => {
                 setAlerta(null);
                 navigate('/admin/');
@@ -30,6 +36,7 @@ function Login() {
         }
         if (erro) {
             setAlerta({ tipo: 'erro', mensagem: erro });
+            toast.error(`Erro de login: ${erro}`);
             setTimeout(() => {
                 setAlerta(null);
             }, 3000);
@@ -38,12 +45,20 @@ function Login() {
 
     return (
         <div className={styles.LoginContainer}>
-            {alerta && (
-                <div className={alerta.tipo === 'sucesso' ? styles.alertaSucesso : styles.alertaErro}>
-                    {alerta.mensagem}
-                </div>
-            )}
+            <ToastContainer 
+                position="top-center" 
+                autoClose={3000} 
+                hideProgressBar 
+                closeOnClick 
+                pauseOnHover 
+                draggable 
+                transition={Slide} 
+                style={{ top: '10px' }}
+            />
             <form onSubmit={handleSubmit}>
+                <div className={styles.logoContainer}>
+                    <img src={LogoCataratas} alt="Cataratas Park Hotel Logo" />
+                </div>
                 <h1 className={styles.Titulo}>Login</h1>
                 <div>
                     <CampoDigitacao
@@ -62,7 +77,7 @@ function Login() {
                     />
                 </div>
                 <div>
-                  <Botao classe ={styles.botao} tipo="submit">Entrar</Botao>
+                    <Botao classe ={styles.botao} tipo="submit">Entrar</Botao>
                 </div>
             </form>
         </div>

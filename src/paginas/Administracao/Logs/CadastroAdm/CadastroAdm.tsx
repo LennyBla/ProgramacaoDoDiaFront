@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { ICadastroAdm } from "../../../../interfaces/ICadastroAdmr";
 import Botao from '../../../../componentes/Botoes/Botao/Button';
 import styles from './cadastro.module.scss';
-import { ICadastroAdm } from "../../../../interfaces/ICadastroAdmr";
-import { useNavigate } from "react-router-dom";
-import stylesGlobal from '../../../../Global.module.scss'
+import stylesGlobal from '../../../../Global.module.scss';
 import CampoDigitacao from '../../Campo/Digite';
 import usePost from '../../../../hook/usePost';
+import LogoCataratas from '../../../../asset/cataratasparkhotel.png';
+
 
 function CadastroAdm() {
     const [email, setEmail] = useState('');
@@ -14,28 +18,31 @@ function CadastroAdm() {
     const [username, setUsername] = useState('');
     const { cadastrarDados, erro, sucesso } = usePost();
     const [alerta, setAlerta] = useState<{ tipo: 'sucesso' | 'erro'; mensagem: string } | null>(null);
-    const [usernameErro, setUsernameErro] = useState<boolean>(false); // Estado para indicar erro no username
-    const [emailErro, setEmailErro] = useState<boolean>(false); // Estado para indicar erro no email
-    const [passwordErro, setPasswordErro] = useState<boolean>(false); // Estado para indicar erro na senha
+    const [usernameErro, setUsernameErro] = useState<boolean>(false);
+    const [emailErro, setEmailErro] = useState<boolean>(false);
+    const [passwordErro, setPasswordErro] = useState<boolean>(false);
     const navigate = useNavigate();
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-
-        // Validar username
         if (!username.includes('@')) {
             setUsernameErro(true);
             return;
         } else {
             setUsernameErro(false);
         }
-
-        // Validar email
         if (!email.includes('@') || !email.includes('.')) {
             setEmailErro(true);
             return;
         } else {
             setEmailErro(false);
+        }
+        const senhaForteRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+        if (!senhaForteRegex.test(password)) {
+            setPasswordErro(true);
+            return;
+        } else {
+            setPasswordErro(false);
         }
 
         const userData: ICadastroAdm = {
@@ -48,6 +55,7 @@ function CadastroAdm() {
             await cadastrarDados({ url: "/user/", dados: userData });
             if (sucesso) {
                 setAlerta({ tipo: 'sucesso', mensagem: 'Cadastro realizado com sucesso!' });
+                toast.success('Cadastro realizado com sucesso!');
                 setTimeout(() => {
                     setAlerta(null);
                     navigate('/login/');
@@ -55,6 +63,7 @@ function CadastroAdm() {
             }
         } catch (error) {
             setAlerta({ tipo: 'erro', mensagem: 'Não foi possível fazer o cadastro.' });
+            toast.error('Não foi possível fazer o cadastro.');
             setTimeout(() => {
                 setAlerta(null);
             }, 3000);
@@ -63,12 +72,20 @@ function CadastroAdm() {
 
     return (
         <div className={styles.CadastroAdmContainer}>
-            {alerta && (
-                <div className={alerta.tipo === 'sucesso' ? styles.alertaSucesso : styles.alertaErro}>
-                    {alerta.mensagem}
-                </div>
-            )}
+            <ToastContainer 
+                position="top-center" 
+                autoClose={3000} 
+                hideProgressBar 
+                closeOnClick 
+                pauseOnHover 
+                draggable 
+                transition={Slide} 
+                style={{ top: '10px' }} 
+            />
             <form onSubmit={handleSubmit}>
+                <div className={styles.logoContainer}>
+                    <img src={LogoCataratas} alt="Cataratas Park Hotel Logo" />
+                </div>
                 <h1 className={stylesGlobal.Titulo}>Cadastro</h1>
                 <div>
                     <CampoDigitacao
@@ -77,8 +94,8 @@ function CadastroAdm() {
                         placeholder='E-mail'
                         onChange={setUsername}
                         label='E-mail'
-                        erro={usernameErro} // Passar estado de erro para o componente CampoDigitacao
-                        mensagemErro="O username deve conter '@'." // Mensagem de erro
+                        erro={usernameErro}
+                        mensagemErro="O username deve conter '@'."
                     />
                     <CampoDigitacao
                         valor={email}
@@ -86,8 +103,8 @@ function CadastroAdm() {
                         placeholder='Confirme seu e-mail'
                         onChange={setEmail}
                         label='Confirme seu E-mail'
-                        erro={emailErro} // Passar estado de erro para o componente CampoDigitacao
-                        mensagemErro="E-mail inválido." // Mensagem de erro
+                        erro={emailErro}
+                        mensagemErro="E-mail inválido."
                     />
                     <CampoDigitacao
                         valor={password}
@@ -95,8 +112,8 @@ function CadastroAdm() {
                         placeholder='Digite a senha'
                         onChange={setPassword}
                         label='Senha'
-                        erro={passwordErro} // Passar estado de erro para o componente CampoDigitacao
-                        mensagemErro="A senha deve ter pelo menos 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais." // Mensagem de erro
+                        erro={passwordErro}
+                        mensagemErro="A senha deve ter pelo menos 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais."
                     />
                     <CampoDigitacao
                         valor={confirm_password}
@@ -106,9 +123,9 @@ function CadastroAdm() {
                         label='Confirme a sua Senhaaaa'
                     />
                 </div>
-                <div>
-                    <Botao tipo="submit" classe={styles.btn}>Salvar</Botao>
-                </div>
+                    <div>
+                    <Botao classe ={styles.botao} tipo="submit">Salvar</Botao>
+                    </div>
             </form>
         </div>
     );
