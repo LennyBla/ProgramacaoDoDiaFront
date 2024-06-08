@@ -1,66 +1,85 @@
 .Link {
-    display: flex; /* Enable flexbox layout */
-    text-align: center;
-    justify-content: space-between; /* Distribute content horizontally */
-    align-items: center; /* Align items vertically */
-    background-color: black; /* Maintain background color */
-    margin-top: 0;
-    padding: 10px 0;
+  display: flex;
+  text-align: center;
+  justify-content: space-between;
+  align-items: center;
+  background-color: black;
+  margin-top: 0;
+  padding: 10px 0;
+  
+  ul {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    li {
+      list-style: none;
+      margin: 0 15px;
 
-    @media (max-width: 768px) {
-        .Link {
-          flex-direction: column; 
-          align-items: flex-start;
+      &::after {
+        content: "";
+        display: block;
+        width: 0;
+        height: 2px;
+        background: #fff;
+        transition: width 0.3s;
+      }
+
+      &:hover::after {
+        width: 100%;
+      }
+
+      a {
+        text-decoration: none;
+        font-size: 1.2rem;
+        color: white;
+        animation: fadeIn 2s ease-in-out;
+
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
         }
-      
-        .Link ul li {
-          margin: 10px 0;
+
+        &:visited {
+          color: #fff;
         }
       }
-      
-      @media (max-width: 576px) {
-        .Link ul li {
-          margin: 5px 0; 
-        }
-      }
-      
-    
-    ul {
-        padding: 0;
-        margin: 0;
-        li {
-            list-style: none;
-            display: inline-block;
-            margin: 0 15px;
-
-            &::after {
-                content: "";
-                display: block;
-                width: 0;
-                height: 2px;
-                background: #fff; 
-                transition: width 0.3s;
-            }
-
-            &:hover::after {
-                width: 100%;
-            }
-
-            a {
-                text-decoration: none;
-                font-size: 1.2rem;
-                color: white; 
-                animation: fadeIn 2s ease-in-out;
-
-                @keyframes fadeIn {
-                    from { opacity: 0; }
-                    to { opacity: 1; }
-                  }
-
-                &:visited {
-                    color: #fff; 
-                }
-            }
-        }
     }
+  }
+
+  .menuButton {
+    display: none;
+    font-size: 2rem;
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  @media (max-width: 768px) {
+    .menuButton {
+      display: block;
+    }
+
+    ul {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 250px;
+      flex-direction: column;
+      background-color: black;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      z-index: 1000;
+      padding-top: 60px;
+
+      &.active {
+        transform: translateX(0);
+      }
+
+      li {
+        margin: 20px 0;
+      }
+    }
+  }
 }

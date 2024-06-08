@@ -1,56 +1,75 @@
 import { makeObservable, observable, action } from "mobx";
+import { httpV2 } from '../http'
 
 interface IUsuario {
-    username: string;
-    token: string;
+  username: string;
+  token: string;
+  expirationTime: number; 
 }
 
 class AutenticaStore {
-    estaAutenticado = false;
-    usuario: IUsuario = { username: "", token: "" };
+  estaAutenticado = false;
+  usuario: IUsuario = { username: "", token: "", expirationTime: 0 };
 
-    constructor() {
-        makeObservable(this, {
-            estaAutenticado: observable,
-            usuario: observable,
-            login: action,
-            logout: action
-        });
+  constructor() {
+    makeObservable(this, {
+      estaAutenticado: observable,
+      usuario: observable,
+      login: action,
+      logout: action,
+      refreshToken: action, 
+    });
 
-        // Inicializa a autenticação com base nos dados armazenados
-        this.initializeAuth();
+    this.initializeAuth();
+  }
+
+  login({ username, token, expirationTime }: IUsuario) {
+    this.setAuthData(username, token, expirationTime);
+  }
+
+  logout() {
+    this.clearAuthData();
+  }
+
+  setAuthData(username: string, token: string, expirationTime: number) {
+    this.estaAutenticado = true;
+    this.usuario = { username, token, expirationTime };
+    localStorage.setItem('token', token);
+    localStorage.setItem('username', username);
+    localStorage.setItem('expirationTime', expirationTime.toString()); 
+  }
+
+  clearAuthData() {
+    this.estaAutenticado = false;
+    this.usuario = { username: "", token: "", expirationTime: 0 };
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    localStorage.removeItem('expirationTime');
+  }
+
+  initializeAuth() {
+    const token = localStorage.getItem('token');
+    const username = localStorage.getItem('username');
+    const expirationTimeString = localStorage.getItem('expirationTime');
+    const expirationTime = expirationTimeString ? parseInt(expirationTimeString, 10) : 0; 
+
+    if (token && username && expirationTime > Date.now()) { 
+      this.setAuthData(username, token, expirationTime);
+    } else {
+      this.clearAuthData(); 
     }
+  }
 
-    login({ username, token }: IUsuario) {
-        this.setAuthData(username, token);
+  refreshToken = async () => {
+    try {
+      const response = await httpV2.post('/refresh-token');
+      const { newToken, newExpirationTime } = response.data; 
+      this.setAuthData(this.usuario.username, newToken, newExpirationTime);
+    } catch (error) {
+      console.error('Error refreshing token:', error);
+      this.logout(); 
     }
-
-    logout() {
-        this.clearAuthData();
-    }
-
-    setAuthData(username: string, token: string) {
-        this.estaAutenticado = true;
-        this.usuario = { username, token };
-        localStorage.setItem('token', token);
-        localStorage.setItem('username', username);
-    }
-
-    clearAuthData() {
-        this.estaAutenticado = false;
-        this.usuario = { username: "", token: "" };
-        localStorage.removeItem('token');
-        localStorage.removeItem('username');
-    }
-
-    initializeAuth() {
-        const token = localStorage.getItem('token');
-        const username = localStorage.getItem('username');
-        
-        if (token && username) {
-            this.setAuthData(username, token);
-        }
-    }
+  }
 }
 
 const autenticaStore = new AutenticaStore();

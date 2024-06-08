@@ -3,7 +3,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 100%; 
+  width: 90%; 
   max-width: 900px;
   max-height: 210px; 
   margin: 20px auto;
@@ -13,7 +13,7 @@
   color: #000;
   overflow: hidden;
   transition: all 0.3s ease;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
   animation: fadeIn 2s ease-in-out;
   transition: transform 0.2s ease-in-out;
   
@@ -27,15 +27,13 @@
   }
 
   @media (max-width: 768px) {
-    /* Styles for tablets */
-    flex-direction: column; /* Stack image and content */
-    max-width: 100%; /* Full width on tablets */
+    flex-direction: column;
+    max-width: 100%; 
   }
 
   @media (max-width: 576px) {
-    /* Styles for mobile */
-    max-width: 100%; /* Full width on mobile */
-    padding: 10px; /* Reduce padding for smaller screens */
+    max-width: 100%;
+    padding: 10px;
   }
   .cardContent {
     flex: 1;

@@ -2,10 +2,10 @@ body{
     background-image: url('../../../public/fundo.png');
 }
 .btn button {
-    text-decoration: none; /* Remove sublinhado */
+    text-decoration: none; 
   }
   .btn a {
-    text-decoration: none; /* Remove sublinhado */
+    text-decoration: none;
   }
   
 .btn {
@@ -15,30 +15,21 @@ body{
     text-decoration: none;
 
   }
-
-.Categorias {
+  .logoContainer {
+    top: 10; 
+    left: 50%; 
+    transform: translateX(-50%);
+    width: 300px;
+    height: auto;
     display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    align-items: center;
-
-    .TipoDePrato {
-        text-align: center;
-
-        img {
-            max-width: 100%;
-            overflow: hidden;
-            border: 10px solid #eaf0ff;
-            border-radius: 50%;
-        }
-
-        h4 {
-            margin-top: 20px;
-            font-size: 22px;
-            color: #121212;
-            font-weight: 600;
-            margin-bottom: 0px;
-        }
-    }
-}
-
+    justify-content: center;
+    align-items: center; 
+    position: relative; 
+    top: -0px;
+    margin-bottom: 20px;
+  }
+  
+  .logoContainer img {
+    max-width: 100%;
+    height: auto; 
+  }

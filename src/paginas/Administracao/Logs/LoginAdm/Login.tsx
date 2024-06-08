@@ -1,33 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Botao from '../../../../componentes/Botoes/Botao/Button';
 import CampoDigitacao from '../../Campo/Digite';
 import usePost from '../../../../hook/usePost';
 import autenticaStore from '../../../../stores/autentica.store';
-import stylesGlobal from '../../../../Global.module.scss';
 import styles from './Login.module.scss';
+import LogoCataratas from '../../../../asset/cataratasparkhotel.png';
 
 function Login() {
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [alerta, setAlerta] = useState<{ tipo: 'sucesso' | 'erro'; mensagem: string } | null>(null);
     const { cadastrarDados, resposta, erro } = usePost();
-    //const [isLoading, setIsLoading] = useState<boolean>(false);
     const navigate = useNavigate();
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const userData = { username, password };
-        //  setIsLoading(true);
         await cadastrarDados({ url: "/login/", dados: userData });
     };
-    
+
     useEffect(() => {
         if (resposta?.token) {
-            localStorage.setItem('token', resposta.token);
-            autenticaStore.login({ username, token: resposta.token });
-            setAlerta({ tipo: 'sucesso', mensagem: 'Entrando ...' }); //fazer uma animação de carregamento
-            //setIsLoading(false);
+            const expirationTime = Date.now() + 3600 * 1000;
+            autenticaStore.login({ username, token: resposta.token, expirationTime });
+
+            setAlerta({ tipo: 'sucesso', mensagem: 'Entrando ...' });
+            toast.success('Login bem-sucedido! Entrando ...');
             setTimeout(() => {
                 setAlerta(null);
                 navigate('/admin/');
@@ -35,24 +36,30 @@ function Login() {
         }
         if (erro) {
             setAlerta({ tipo: 'erro', mensagem: erro });
-            //setIsLoading(false);
+            toast.error(`Erro de login: ${erro}`);
             setTimeout(() => {
                 setAlerta(null);
             }, 3000);
         }
     }, [resposta, erro, username, navigate]);
 
-
-
     return (
         <div className={styles.LoginContainer}>
-            {alerta && (
-                <div className={alerta.tipo === 'sucesso' ? styles.alertaSucesso : styles.alertaErro}>
-                    {alerta.mensagem}
-                </div>
-            )}
+            <ToastContainer 
+                position="top-center" 
+                autoClose={3000} 
+                hideProgressBar 
+                closeOnClick 
+                pauseOnHover 
+                draggable 
+                transition={Slide} 
+                style={{ top: '10px' }}
+            />
             <form onSubmit={handleSubmit}>
-                <h1 className={stylesGlobal.Titulo}>Login</h1>
+                <div className={styles.logoContainer}>
+                    <img src={LogoCataratas} alt="Cataratas Park Hotel Logo" />
+                </div>
+                <h1 className={styles.Titulo}>Login</h1>
                 <div>
                     <CampoDigitacao
                         valor={username}
@@ -70,8 +77,7 @@ function Login() {
                     />
                 </div>
                 <div>
-                    {/*{isLoading && <Loading />}*/}
-                    <Botao tipo="submit">Entrar</Botao>
+                    <Botao classe ={styles.botao} tipo="submit">Entrar</Botao>
                 </div>
             </form>
         </div>

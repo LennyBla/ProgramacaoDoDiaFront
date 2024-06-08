@@ -9,38 +9,22 @@ import Slide from '../../componentes/Slide/Slide';
 import MiniBanner from '../../componentes/MiniBanner/MiniBanner';
 import Botao from './../../componentes/Botoes/Botao/Button';
 import StylesGlobal from '../../Global.module.scss'
-
+import LogoRecreacao from '../../asset/confiranossaprogramao.png'
+import Botao from './../../componentes/Botoes/Botao/Button';
 
 function App() {
-  const [atualizarPagina, setAtualizarPagina] = useState(false);
-
-  const handleCadastro = () => {
-    // Lógica de cadastro aqui
-
-    // Após uma ação bem-sucedida, atualize a página
-    setAtualizarPagina(true);
-  };
-
-  if (atualizarPagina) {
-    // Recarrega a página
-    window.location.reload();
-  }
 
   return (
     <>
       <NavBar />
       <Slide />
+      <div className={styles.logoContainer}>
+        <img src={LogoRecreacao} alt="Cataratas Park Hotel Logo" />
+       </div>
       <Link to='/cadastro' className={styles.btn}>
         <Botao classe={styles.botao} onClick={handleCadastro}>Cadastre-se</Botao>
       </Link>
-      <div className={StylesGlobal.logo}>
-        <h1>Nossa Recreação (Logo) </h1>
-      </div>
       <Card cardColorClass={styles.Card} />
-    
-      <Link to='/cadastro' className={styles.btn}>
-        <Botao classe={styles.botao} onClick={handleCadastro}>Cadastre-se</Botao>
-      </Link>
       <Rodape />
     </>
   );

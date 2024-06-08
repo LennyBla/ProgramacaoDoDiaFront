@@ -1,53 +1,72 @@
-/* Arquivo Login.module.scss */
-
 .CadastroContainer {
-    display: flex;
-    margin-top: 10px;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 90vh;
-    width: 60vw;
-    border-radius: 10px; /* Arredondamento */
-    background-color: #f0f0f0; /* Cor de fundo */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.25); /* Sombra */
-
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  height: auto; 
+  width: 90vw;
+  max-width: 500px; 
+  border-radius: 10px;
+  background-color: #f0f0f0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.25);
+  padding: 20px; 
   
-  .formContainer {
-    background-color: #fff; /* Cor do formulário */
-    padding: 30px;
-    border-radius: 10px; /* Arredondamento */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
+  @media (max-width: 768px) {
+    padding: 20px;
+    h1 {
+      font-size: 24px;
+    }
   }
+}
+  
   .voltar {
-    position: absolute; /* Position button absolutely */
-    top: 30px; /* Margin from top */
-    left: 30px; /* Margin from left */
+    position: absolute;
+    top: 30px; 
+    left: 30px;
+  }
+
+  .logoContainer {
+    top: 10; 
+    left: 50%; 
+    transform: translateX(-50%);
+    width: 300px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    position: relative; 
+    top: -0px;
+    margin-bottom: 20px;
   }
   
-  h1 {
+  .logoContainer img {
+    max-width: 100%;
+    height: auto; 
+  }
+  
+  .Titulo{
     text-align: center;
-    margin-bottom: 20px;
+    font-size: 30px;
   }
   
-  .alertaSucesso {
-    background-color: #4CAF50; /* Verde */
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 20px;
+  .botao {
+    text-decoration: none;
+    background-color: #FF6766;
+    color: #ededed;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    display: block;
+    margin: 0 auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.30);
+    margin-top: 20px;
+    transition: transform 0.2s ease-in-out;
   }
-  
-  .alertaErro {
-    background-color: #F44336; /* Vermelho */
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-  }
-  

@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { ICard } from "../../../interfaces/ICard";
 import Botao from '../../Botoes/Botao/Button';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import styles from '../Card.module.scss';
 import Skeleton from 'react-loading-skeleton';
 
-import MeninaFundoAmarelo from '../MeninaFundoAmarelo.svg'
-import MeninoFundoVermelho from '../MeninoFundoVermelho.svg'
-import MeninoFundoAzul from '../MeninoFundoAzul.svg'
-import CriancasFundoVerde from '../CriancasFundoVerde.svg'
+import MeninaFundoAmarelo from '../MeninaFundoAmarelo.svg';
+import MeninoFundoVermelho from '../MeninoFundoVermelho.svg';
+import MeninoFundoAzul from '../MeninoFundoAzul.svg';
+import CriancasFundoVerde from '../CriancasFundoVerde.svg';
 
 interface ItemCardProps extends ICard {
   cardColorClass?: string;
@@ -64,11 +64,11 @@ function ItemCard({ cardColorClass, id, titulo, descricao, onClick, index }: Ite
           )}
         </div>
         
-        <Link to='/cadastro' className={styles.btn}>
+        {/* <Link to='/cadastro' className={styles.btn}>
           <Botao tipo="button" classe={styles.botao} estilo={{ backgroundColor: buttonColor }}>
             Cadastre-se
           </Botao>
-        </Link>
+        </Link> */}
       </div>
       <img src={cardImage} alt="" className={styles.cardImage} />
 
