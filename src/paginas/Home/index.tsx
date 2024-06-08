@@ -10,6 +10,7 @@ import MiniBanner from '../../componentes/MiniBanner/MiniBanner';
 import Botao from './../../componentes/Botoes/Botao/Button';
 import StylesGlobal from '../../Global.module.scss'
 import LogoRecreacao from '../../asset/confiranossaprogramao.png'
+import Botao from './../../componentes/Botoes/Botao/Button';
 
 function App() {
 
@@ -20,6 +21,9 @@ function App() {
       <div className={styles.logoContainer}>
         <img src={LogoRecreacao} alt="Cataratas Park Hotel Logo" />
        </div>
+      <Link to='/cadastro' className={styles.btn}>
+        <Botao classe={styles.botao} onClick={handleCadastro}>Cadastre-se</Botao>
+      </Link>
       <Card cardColorClass={styles.Card} />
       <Rodape />
     </>
