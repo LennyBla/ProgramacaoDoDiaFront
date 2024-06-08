@@ -10,9 +10,21 @@ import MiniBanner from '../../componentes/MiniBanner/MiniBanner';
 import Botao from './../../componentes/Botoes/Botao/Button';
 import StylesGlobal from '../../Global.module.scss'
 import LogoRecreacao from '../../asset/confiranossaprogramao.png'
-import Botao from './../../componentes/Botoes/Botao/Button';
 
 function App() {
+  const [atualizarPagina, setAtualizarPagina] = useState(false);
+
+  const handleCadastro = () => {
+    // Lógica de cadastro aqui
+
+    // Após uma ação bem-sucedida, atualize a página
+    setAtualizarPagina(true);
+  };
+
+  if (atualizarPagina) {
+    // Recarrega a página
+    window.location.reload();
+  }
 
   return (
     <>
