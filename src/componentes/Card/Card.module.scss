@@ -21,65 +21,73 @@
   transform: scale(1.1);
 }
 
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    max-width: 100%; 
-  }
-
-  @media (max-width: 576px) {
-    max-width: 100%;
-    padding: 10px;
-  }
-  .cardContent {
-    flex: 1;
-    flex-direction: column; 
-  }
-
-  .cardHeader {
-    margin-top: 55px;
-    display: flex;
-    justify-content: flex-start; 
-    flex-direction: column;
-  }
-
-  .cardTitle {
-    font-size: 1.5rem;
-    color:#fff;
-    margin: 0;
-    flex: 1;
-  }
-  .cardDescription {
-    font-size: 1rem;
-    color:#fff;
-    padding: 10px;
-  }
-  .cardImage {
-    height: 100%;
-    object-fit: cover; 
-  }
-
-  .btn {
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    padding: 10px 20px;
-    border-radius: 10px;
-    text-decoration: none;
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-
-  &.color1 { background: #FF6766; }
-  &.color2 { background: #F9C20B; }
-  &.color3 { background: #ABCD52; }
-  &.color4 { background: #1AB8FF; }
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
+@media (max-width: 768px) {
+  .itemCard {
+    flex-direction: column;
+    max-width: 100%;
+  }
+  .cardImage {
+    display: none; /* Esconde a imagem em dispositivos móveis e tablets */
+  }
+}
+
+@media (max-width: 576px) {
+  .itemCard {
+    padding: 10px;
+  }
+}
+
+.cardContent {
+  flex: 1;
+  flex-direction: column; 
+}
+
+.cardHeader {
+  margin-top: 55px;
+  display: flex;
+  justify-content: flex-start; 
+  flex-direction: column;
+}
+
+.cardTitle {
+  font-size: 1.5rem;
+  color:#fff;
+  margin: 0;
+  flex: 1;
+}
+
+.cardDescription {
+  font-size: 1rem;
+  color:#fff;
+  padding: 10px;
+}
+
+.cardImage {
+  height: 100%;
+  object-fit: cover; 
+}
+
+.btn {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  padding: 10px 20px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+&.color1 { background: #FF6766; }
+&.color2 { background: #F9C20B; }
+&.color3 { background: #ABCD52; }
+&.color4 { background: #1AB8FF; }
+}
 
 .btn button {
   text-decoration: none;
