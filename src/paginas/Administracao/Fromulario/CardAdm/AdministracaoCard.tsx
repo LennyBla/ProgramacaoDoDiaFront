@@ -28,7 +28,7 @@ const Administracao = () => {
 
     return (
         <Box>
-            <Typography variant="h4" gutterBottom> Registros de Usuário</Typography>
+            <Typography variant="h4" gutterBottom>Lista Recreação</Typography>
             <TableContainer component={Paper}>
             <Table>
                 <TableHead>

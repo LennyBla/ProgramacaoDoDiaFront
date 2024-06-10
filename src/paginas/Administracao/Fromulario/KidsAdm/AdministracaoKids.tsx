@@ -72,7 +72,7 @@ const AdministracaoKids = () => {
   return (
     
     <TableContainer component={Paper}>
-     <Typography component="h1" variant="h4" gutterBottom sx={{ mb: 2 }}>Registros de Crianças</Typography>
+     <Typography component="h1" variant="h4" gutterBottom sx={{ mb: 2 }}>Lista de Criaças</Typography>
       <Table sx={{ minWidth: 650 }}> {/* Set minimum table width */}
       
         <TableHead>

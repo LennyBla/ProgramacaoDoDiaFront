@@ -65,7 +65,7 @@ const FormularioCard = () => {
         
                     <Paper sx={{ p: 2 }}>
                         <Box sx={{ display: 'flex', flexDirection: "column", alignItems: "center", flexGrow: 1 }}>
-                            <Typography component="h1" variant="h4">Programação do Dia</Typography>
+                            <Typography component="h1" variant="h4">Nova Recreação</Typography>
                             <Box component="form" sx={{ width: '70%' }} onSubmit={aoSubmeterForm}>
                                 <TextField
                                     value={tituloCard}

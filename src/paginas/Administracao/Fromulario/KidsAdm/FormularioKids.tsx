@@ -81,7 +81,7 @@ const FormularioKids = () => {
                 <Container maxWidth="lg" sx={{ mt: 1 }}>
                     <Paper sx={{ p: 2 }}>
                         <Box sx={{ display: 'flex', flexDirection: "column", alignItems: "center", flexGrow: 1 }}>
-                        <Typography component="h1" variant="h4">Formulário de Cadastro de Crianças</Typography>
+                        <Typography component="h1" variant="h4">Cadastro de Crianças</Typography>
 
                             <Box component="form" sx={{ width: '70%' }} onSubmit={aoSubmeterForm}>
                                 <TextField
