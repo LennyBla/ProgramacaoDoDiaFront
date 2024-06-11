@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { toast, ToastContainer, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Botao from '../../../../componentes/Botoes/Botao/Button';
@@ -43,8 +45,12 @@ function Login() {
         }
     }, [resposta, erro, username, navigate]);
 
+    const handleBack = () => {
+        navigate(-1); 
+    };
+
     return (
-        <div className={styles.LoginContainer}>
+        <>
             <ToastContainer 
                 position="top-center" 
                 autoClose={3000} 
@@ -55,32 +61,39 @@ function Login() {
                 transition={Slide} 
                 style={{ top: '10px' }}
             />
-            <form onSubmit={handleSubmit}>
-                <div className={styles.logoContainer}>
-                    <img src={LogoCataratas} alt="Cataratas Park Hotel Logo" />
-                </div>
-                <h1 className={styles.Titulo}>Login</h1>
-                <div>
-                    <CampoDigitacao
-                        valor={username}
-                        onChange={setUsername}
-                        placeholder='Insira seu E-mail'
-                        label='E-mail'
-                        tipo='text'
-                    />
-                    <CampoDigitacao
-                        valor={password}
-                        onChange={setPassword}
-                        placeholder='Digite a senha'
-                        label='Senha'
-                        tipo='password'
-                    />
-                </div>
-                <div>
-                    <Botao classe ={styles.botao} tipo="submit">Entrar</Botao>
-                </div>
-            </form>
-        </div>
+            <button onClick={handleBack} className={styles.backButton}>
+                <FontAwesomeIcon icon={faArrowLeft} /> Voltar
+            </button>
+
+            <div className={styles.LoginContainer}>
+                <form onSubmit={handleSubmit}>
+                    <div className={styles.logoContainer}>
+                        <img src={LogoCataratas} alt="Cataratas Park Hotel Logo" />
+                    </div>
+
+                    <h1 className={styles.Titulo}>Login</h1>
+                    <div>
+                        <CampoDigitacao
+                            valor={username}
+                            onChange={setUsername}
+                            placeholder='Insira seu E-mail'
+                            label='E-mail'
+                            tipo='text'
+                        />
+                        <CampoDigitacao
+                            valor={password}
+                            onChange={setPassword}
+                            placeholder='Digite a senha'
+                            label='Senha'
+                            tipo='password'
+                        />
+                    </div>
+                    <div>
+                        <Botao classe={styles.botao} tipo="submit">Entrar</Botao>
+                    </div>
+                </form>
+            </div>
+        </>
     );
 }
 

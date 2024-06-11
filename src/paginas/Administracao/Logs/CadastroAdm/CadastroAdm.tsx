@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { toast, ToastContainer, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ICadastroAdm } from "../../../../interfaces/ICadastroAdmr";
@@ -9,7 +11,6 @@ import stylesGlobal from '../../../../Global.module.scss';
 import CampoDigitacao from '../../Campo/Digite';
 import usePost from '../../../../hook/usePost';
 import LogoCataratas from '../../../../asset/cataratasparkhotel.png';
-
 
 function CadastroAdm() {
     const [email, setEmail] = useState('');
@@ -70,64 +71,73 @@ function CadastroAdm() {
         }
     }
 
+    const handleBack = () => {
+        navigate(-1); // Navega para a página anterior
+    };
+
     return (
-        <div className={styles.CadastroAdmContainer}>
-            <ToastContainer 
-                position="top-center" 
-                autoClose={3000} 
-                hideProgressBar 
-                closeOnClick 
-                pauseOnHover 
-                draggable 
-                transition={Slide} 
-                style={{ top: '10px' }} 
-            />
-            <form onSubmit={handleSubmit}>
-                <div className={styles.logoContainer}>
-                    <img src={LogoCataratas} alt="Cataratas Park Hotel Logo" />
-                </div>
-                <h1 className={stylesGlobal.Titulo}>Cadastro</h1>
-                <div>
-                    <CampoDigitacao
-                        valor={username}
-                        tipo='text'
-                        placeholder='E-mail'
-                        onChange={setUsername}
-                        label='E-mail'
-                        erro={usernameErro}
-                        mensagemErro="O username deve conter '@'."
-                    />
-                    <CampoDigitacao
-                        valor={email}
-                        tipo='text'
-                        placeholder='Confirme seu e-mail'
-                        onChange={setEmail}
-                        label='Confirme seu E-mail'
-                        erro={emailErro}
-                        mensagemErro="E-mail inválido."
-                    />
-                    <CampoDigitacao
-                        valor={password}
-                        tipo='password'
-                        placeholder='Digite a senha'
-                        onChange={setPassword}
-                        label='Senha'
-                        erro={passwordErro}
-                        mensagemErro="A senha deve ter pelo menos 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais."
-                    />
-                    <CampoDigitacao
-                        valor={confirm_password}
-                        tipo='password'
-                        placeholder='Confirme a senha'
-                        onChange={setConfirm_password}
-                        label='Confirme a sua Senhaaaa'
-                    />
-                </div>
-                    <div>
-                    <Botao classe ={styles.botao} tipo="submit">Salvar</Botao>
+        <>
+            <button onClick={handleBack} className={styles.backButton}>
+                <FontAwesomeIcon icon={faArrowLeft} /> Voltar
+            </button>
+            <div className={styles.CadastroAdmContainer}>
+                <ToastContainer
+                    position="top-center"
+                    autoClose={3000}
+                    hideProgressBar
+                    closeOnClick
+                    pauseOnHover
+                    draggable
+                    transition={Slide}
+                    style={{ top: '10px' }}
+                />
+                <form onSubmit={handleSubmit}>
+                    <div className={styles.logoContainer}>
+                        <img src={LogoCataratas} alt="Cataratas Park Hotel Logo" />
                     </div>
-            </form>
-        </div>
+                    <h1 className={stylesGlobal.Titulo}>Cadastro</h1>
+                    <div>
+                        <CampoDigitacao
+                            valor={username}
+                            tipo='text'
+                            placeholder='E-mail'
+                            onChange={setUsername}
+                            label='E-mail'
+                            erro={usernameErro}
+                            mensagemErro="O username deve conter '@'."
+                        />
+                        <CampoDigitacao
+                            valor={email}
+                            tipo='text'
+                            placeholder='Confirme seu e-mail'
+                            onChange={setEmail}
+                            label='Confirme seu E-mail'
+                            erro={emailErro}
+                            mensagemErro="E-mail inválido."
+                        />
+                        <CampoDigitacao
+                            valor={password}
+                            tipo='password'
+                            placeholder='Digite a senha'
+                            onChange={setPassword}
+                            label='Senha'
+                            erro={passwordErro}
+                            mensagemErro="A senha deve ter pelo menos 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais."
+                        />
+                        <CampoDigitacao
+                            valor={confirm_password}
+                            tipo='password'
+                            placeholder='Confirme a senha'
+                            onChange={setConfirm_password}
+                            label='Confirme a sua Senhaaaa'
+                        />
+                    </div>
+                    <div>
+                        <Botao classe={styles.botao} tipo="submit">Salvar</Botao>
+                    </div>
+                </form>
+            </div>
+        </>
     );
 }
 

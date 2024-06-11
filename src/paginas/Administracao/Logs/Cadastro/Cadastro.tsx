@@ -5,9 +5,11 @@ import { httpV1 } from "../../../../http";
 import Botao from "../../../../componentes/Botoes/Botao/Button";
 import { Ikid } from "../../../../interfaces/Ikid";
 import { useParams, useNavigate } from "react-router-dom";
-import StylesGlobal from '../../../../Global.module.scss'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import StylesGlobal from '../../../../Global.module.scss';
 import CampoDigitacao from "../../Campo/Digite";
-import styles from './Cadastro.module.scss'
+import styles from './Cadastro.module.scss';
 import LogoCataratas from '../../../../asset/cataratasparkhotel.png';
 
 function Cadastro() {
@@ -88,82 +90,88 @@ function Cadastro() {
         }
     };
 
+    const handleBack = () => {
+        navigate(-1); // Navega para a página anterior
+    };
+
     return (
-        <div className={styles.CadastroContainer}>
-            {alerta && (
-                <div className={alerta.tipo === 'sucesso' ? styles.alertaSucesso : styles.alertaErro}>
-                    {alerta.mensagem}
-                </div>
-            )}
-            <form onSubmit={handleSubmit}>
-                <div className={styles.logoContainer}>
-                    <img src={LogoCataratas} alt="Cataratas Park Hotel Logo" />
-                </div>
-
-                <h1 className={StylesGlobal.Titulo}>Cadastre a Criança</h1>
-
-                <div>
-                    <CampoDigitacao
-                        valor={nomeKid}
-                        tipo='text'
-                        placeholder='Nome completo'
-                        onChange={setNomeKid}
-                        label='Nome Completo'
-                    />
-                    <CampoDigitacao
-                        valor={idadeKid}
-                        tipo='text'
-                        placeholder='Idade'
-                        onChange={setIdadeKid}
-                        label='Idade'
-                    />
-                    <CampoDigitacao
-                        valor={responsaveisKid}
-                        tipo='text'
-                        placeholder='Responsáveis'
-                        onChange={setResponsaveisKid}
-                        label='Pais ou Responsáveis'
-                    />
-                    <CampoDigitacao
-                        valor={obsKid}
-                        tipo='text'
-                        placeholder='Observações'
-                        onChange={setObsKid}
-                        label='Observações sobre a Criança'
-                    />
-                    <CampoDigitacao
-                        valor={numeroContato}
-                        tipo='text'
-                        placeholder='Número de Contato'
-                        onChange={setNumeroContato}
-                        label='Número de Contato'
-                    />
-                    <CampoDigitacao
-                        valor={email}
-                        tipo='text'
-                        placeholder='Insira seu e-mail'
-                        onChange={setEmail}
-                        label='E-mail'
-                    />
-                    <CampoDigitacao
-                        valor={numeroApartamento}
-                        tipo='text'
-                        placeholder='Número do Apartamento'
-                        onChange={setNumeroApartamento}
-                        label='Número do Apartamento'
-                    />
-                    <CampoDigitacao
-                        valor={horarioCheckout}
-                        tipo='datetime-local'
-                        placeholder='Horário Checkout'
-                        onChange={setHorarioCheckout}
-                        label='Horário Checkout'
-                    />
-                </div>
-
-                <Botao classe={styles.botao} tipo="submit">Cadastrar</Botao>
-            </form>
-        </div>
+        <>
+            <button onClick={handleBack} className={styles.backButton}>
+                <FontAwesomeIcon icon={faArrowLeft} /> Voltar
+            </button>
+            <div className={styles.CadastroContainer}>
+                {alerta && (
+                    <div className={alerta.tipo === 'sucesso' ? styles.alertaSucesso : styles.alertaErro}>
+                        {alerta.mensagem}
+                    </div>
+                )}
+                <form onSubmit={handleSubmit}>
+                    <div className={styles.logoContainer}>
+                        <img src={LogoCataratas} alt="Cataratas Park Hotel Logo" />
+                    </div>
+                    <h1 className={StylesGlobal.Titulo}>Cadastre a Criança</h1>
+                    <div>
+                        <CampoDigitacao
+                            valor={nomeKid}
+                            tipo='text'
+                            placeholder='Nome completo'
+                            onChange={setNomeKid}
+                            label='Nome Completo'
+                        />
+                        <CampoDigitacao
+                            valor={idadeKid}
+                            tipo='text'
+                            placeholder='Idade'
+                            onChange={setIdadeKid}
+                            label='Idade'
+                        />
+                        <CampoDigitacao
+                            valor={responsaveisKid}
+                            tipo='text'
+                            placeholder='Responsáveis'
+                            onChange={setResponsaveisKid}
+                            label='Pais ou Responsáveis'
+                        />
+                        <CampoDigitacao
+                            valor={obsKid}
+                            tipo='text'
+                            placeholder='Observações'
+                            onChange={setObsKid}
+                            label='Observações sobre a Criança'
+                        />
+                        <CampoDigitacao
+                            valor={numeroContato}
+                            tipo='text'
+                            placeholder='Número de Contato'
+                            onChange={setNumeroContato}
+                            label='Número de Contato'
+                        />
+                        <CampoDigitacao
+                            valor={email}
+                            tipo='text'
+                            placeholder='Insira seu e-mail'
+                            onChange={setEmail}
+                            label='E-mail'
+                        />
+                        <CampoDigitacao
+                            valor={numeroApartamento}
+                            tipo='text'
+                            placeholder='Número do Apartamento'
+                            onChange={setNumeroApartamento}
+                            label='Número do Apartamento'
+                        />
+                        <CampoDigitacao
+                            valor={horarioCheckout}
+                            tipo='datetime-local'
+                            placeholder='Horário Checkout'
+                            onChange={setHorarioCheckout}
+                            label='Horário Checkout'
+                        />
+                    </div>
+                    <Botao classe={styles.botao} tipo="submit">Cadastrar</Botao>
+                </form>
+            </div>
+        </>
     );
 }
 
