@@ -21,6 +21,7 @@ function Slide(){
           modules={[Pagination, Autoplay]} 
         >
           <SwiperSlide><img src={slide} alt="Slide 1" /></SwiperSlide>
+          
           {/*<SwiperSlide><img src={slide} alt="Slide 2" /></SwiperSlide>
           <SwiperSlide><img src={slide} alt="Slide 3" /></SwiperSlide>
           {/* Adicione mais SwiperSlide conforme necessário */}
