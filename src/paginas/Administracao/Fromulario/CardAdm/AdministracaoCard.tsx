@@ -68,7 +68,7 @@ const Administracao = () => {
 
     return (
         <TableContainer component={Paper}>
-            <Typography variant="h4" gutterBottom>Dia </Typography>
+            <Typography component="h1" variant="h4">Lista de Recreação</Typography>
             <Table>
                 <TableHead>
                     <TableRow>
@@ -92,7 +92,7 @@ const Administracao = () => {
                                     onClose={handleMenuClose}
                                 >
                                     <MenuItem component={RouterLink} to={`/admin/card/${card.id}`} onClick={handleMenuClose}> Editar </MenuItem>
-                                    
+
                                     <MenuItem onClick={() => excluir(card)}>Excluir</MenuItem>
                                 </Menu>
                             </TableCell>
