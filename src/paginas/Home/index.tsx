@@ -15,14 +15,10 @@ function App() {
   const [atualizarPagina, setAtualizarPagina] = useState(false);
 
   const handleCadastro = () => {
-    // Lógica de cadastro aqui
-
-    // Após uma ação bem-sucedida, atualize a página
     setAtualizarPagina(true);
   };
 
   if (atualizarPagina) {
-    // Recarrega a página
     window.location.reload();
   }
 

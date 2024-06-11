@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { ICard } from "../../../interfaces/ICard";
 import Botao from '../../Botoes/Botao/Button';
-// import { Link } from 'react-router-dom';
 import styles from '../Card.module.scss';
 import Skeleton from 'react-loading-skeleton';
-
 import MeninaFundoAmarelo from '../MeninaFundoAmarelo.svg';
 import MeninoFundoVermelho from '../MeninoFundoVermelho.svg';
 import MeninoFundoAzul from '../MeninoFundoAzul.svg';
@@ -13,7 +11,7 @@ import CriancasFundoVerde from '../CriancasFundoVerde.svg';
 interface ItemCardProps extends ICard {
   cardColorClass?: string;
   onClick: () => void;
-  index: number;  // Passar o índice do card na lista
+  index: number; 
 }
 
 function ItemCard({ cardColorClass, id, titulo, descricao, onClick, index }: ItemCardProps) {

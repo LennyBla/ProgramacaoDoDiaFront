@@ -1,22 +1,22 @@
 .itemCard {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center; /* Centralizes content horizontally */
   align-items: center;
-  width: 90%; 
-  max-width: 900px;
+  width: 70%;
+  max-width: 1000px;
   max-height: 210px; 
-  margin: 20px auto;
+  margin: auto; /* Ensures centering on most devices */
   border-radius: 20px;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.70);
-  padding: 20px;
+  padding: 25px;
   color: #000;
   overflow: hidden;
   transition: all 0.3s ease;
   margin-bottom: 40px;
   animation: fadeIn 2s ease-in-out;
   transition: transform 0.2s ease-in-out;
-  
+
 .itemCard:hover{
   transform: scale(1.1);
 }
@@ -30,7 +30,9 @@
   .itemCard {
     flex-direction: column;
     max-width: 100%;
-  }
+    padding: 10px;
+
+    }
   .cardImage {
     display: none; /* Esconde a imagem em dispositivos móveis e tablets */
   }
@@ -44,6 +46,7 @@
 
 .cardContent {
   flex: 1;
+  display: flex; /* Garantir que o flex seja aplicado corretamente */
   flex-direction: column; 
 }
 
@@ -68,8 +71,9 @@
 }
 
 .cardImage {
-  height: 100%;
+  height: auto;
   object-fit: cover; 
+  margin-left: 20px; 
 }
 
 .btn {
