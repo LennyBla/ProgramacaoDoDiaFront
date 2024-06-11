@@ -1,4 +1,6 @@
-import { Box, Button, TextField, Typography, Container, Paper } from "@mui/material";
+import { Box, Button, Typography, Container, Paper, Fab, Dialog, DialogTitle, DialogContent, DialogActions, TextField } from "@mui/material";
+import AddIcon from '@mui/icons-material/Add';
+
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { httpV2 } from "../../../../http";
@@ -6,9 +8,11 @@ import { ICard } from "../../../../interfaces/ICard";
 
 const FormularioCard = () => {
     const parametros = useParams();
-
     const [tituloCard, setTituloCard] = useState('');
     const [descricaoCard, setDescricaoCard] = useState('');
+    const [openDialog, setOpenDialog] = useState(false);
+    const [novoCardTitulo, setNovoCardTitulo] = useState('');
+    const [novoCardDescricao, setNovoCardDescricao] = useState('');
 
     useEffect(() => {
         if (parametros.id) {
@@ -58,14 +62,37 @@ const FormularioCard = () => {
         }
     };
 
+    const handleOpenDialog = () => {
+        setOpenDialog(true);
+    };
+
+    const handleCloseDialog = () => {
+        setOpenDialog(false);
+    };
+
+    const handleCriarNovoCard = () => {
+        httpV2.post('card/', {
+            titulo: novoCardTitulo,
+            descricao: novoCardDescricao
+        })
+            .then(() => {
+                alert("Novo card criado com sucesso!");
+                setNovoCardTitulo('');
+                setNovoCardDescricao('');
+                handleCloseDialog();
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    };
+
     return (
         <>
             <Box>
                 <Container maxWidth="lg" sx={{ mt: 1 }}>
-        
                     <Paper sx={{ p: 2 }}>
                         <Box sx={{ display: 'flex', flexDirection: "column", alignItems: "center", flexGrow: 1 }}>
-                            <Typography component="h1" variant="h4">Nova Recreação</Typography>
+                            <Typography component="h1" variant="h4">Programação do Dia</Typography>
                             <Box component="form" sx={{ width: '70%' }} onSubmit={aoSubmeterForm}>
                                 <TextField
                                     value={tituloCard}
@@ -92,6 +119,37 @@ const FormularioCard = () => {
                         </Box>
                     </Paper>
                 </Container>
+                <Dialog open={openDialog} onClose={handleCloseDialog}>
+                    <DialogTitle>Criar Novo Card</DialogTitle>
+                    <DialogContent>
+                        <TextField
+                            autoFocus
+                            margin="dense"
+                            id="titulo"
+                            label="Título"
+                            type="text"
+                            fullWidth
+                            value={novoCardTitulo}
+                            onChange={(e) => setNovoCardTitulo(e.target.value)}
+                        />
+                        <TextField
+                            margin="dense"
+                            id="descricao"
+                            label="Descrição"
+                            type="text"
+                            fullWidth
+                            value={novoCardDescricao}
+                            onChange={(e) => setNovoCardDescricao(e.target.value)}
+                        />
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleCloseDialog}>Cancelar</Button>
+                        <Button onClick={handleCriarNovoCard}>Criar</Button>
+                    </DialogActions>
+                </Dialog>
+                <Fab color="primary" aria-label="add" onClick={handleOpenDialog} sx={{ position: 'fixed', bottom: 70, right: 70 }}>
+                    <AddIcon />
+                </Fab>
             </Box>
         </>
     );

@@ -40,7 +40,7 @@ const PaginaBaseAdmin = () => {
             </Typography>
             <List>
                 <ListItem button component={RouterLink} to="/admin/card">
-                    <ListItemText primary="RECREAÇÃO" />
+                    <ListItemText primary="Lista de Recreção" />
                 </ListItem>
                 <ListItem button component={RouterLink} to="/admin/card/novo">
                     <ListItemText primary="Novo Card" />
@@ -50,9 +50,6 @@ const PaginaBaseAdmin = () => {
                 </ListItem>
                 <ListItem button component={RouterLink} to="/admin/Kids/novo">
                     <ListItemText primary="Novo Cadastro de Criança" />
-                </ListItem>
-                <ListItem button onClick={handleModificacoes}>
-                    <ListItemText primary="Modificações" />
                 </ListItem>
                 <ListItem button onClick={handleLogout}>
                     <ListItemText primary="Sair" />
@@ -84,7 +81,7 @@ const PaginaBaseAdmin = () => {
                         <Box sx={{ display: { xs: 'none', md: 'flex' }, flexGrow: 1, justifyContent: 'center' }}>
                             <Link component={RouterLink} to="/admin/card">
                                 <Button sx={{ mx: 2, color: 'white' }}>
-                                    RECREAÇÃO
+                                    Lista de Recreção
                                 </Button>
                             </Link>
                             <Link component={RouterLink} to="/admin/card/novo">
@@ -134,7 +131,6 @@ const PaginaBaseAdmin = () => {
                             open={Boolean(anchorEl)}
                             onClose={handleClose}
                         >
-                            <MenuItem onClick={handleModificacoes}>Modificações</MenuItem>
                             <MenuItem onClick={handleLogout}>Sair</MenuItem>
                         </Menu>
                     </Toolbar>
@@ -146,7 +142,7 @@ const PaginaBaseAdmin = () => {
                     open={mobileOpen}
                     onClose={handleDrawerToggle}
                     ModalProps={{
-                        keepMounted: true, // Better open performance on mobile.
+                        keepMounted: true, 
                     }}
                     sx={{
                         display: { xs: 'block', md: 'none' },
