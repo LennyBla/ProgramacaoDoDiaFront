@@ -10,6 +10,8 @@ import Login from './paginas/Administracao/Logs/LoginAdm/Login';
 import PaginaBaseAdmin from './paginas/Administracao/PagBaseAdmin';
 import NotFund from './paginas/NotFund/NotFund';
 import RotaPrivada from './utils/RotaPrivada';
+import CardIndividual from './paginas/Administracao/Fromulario/CardAdm/CardIndividual';
+import KidIndividual from './paginas/Administracao/Fromulario/KidsAdm/KidIndividual';
 
 function App() {
   return (
@@ -25,9 +27,14 @@ function App() {
           <Route path="card" element={<AdministracaoCard />} />
           <Route path="card/novo" element={<FormularioCard />} />
           <Route path="card/:id" element={<FormularioCard />} />
+
+          <Route path="card/individual" element={<CardIndividual />} />
+
           <Route path="kids" element={<AdministracaoKids />} />
           <Route path="kids/novo" element={<FormularioKids />} />
           <Route path="kids/:id" element={<FormularioKids />} />
+
+          <Route path="kids/individual" element={<KidIndividual />} />
         </Route>
       </Route>
 

@@ -1,3 +1,4 @@
+import { ICard } from './ICard';
 export interface Ikid{
     id: number; // Autoincremento
     kid: any;
@@ -10,5 +11,6 @@ export interface Ikid{
     numeroApartamento: string;
     horarioCheckout: string;
     deletar_se_hospedagem_expirada: string;
+    cards: ICard[]
  
 }
