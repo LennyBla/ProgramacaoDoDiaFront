@@ -1,5 +1,7 @@
 import { Box, Button, Typography, Container, Paper, Fab, Dialog, DialogTitle, DialogContent, DialogActions, TextField } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
+import ReactQuill from 'react-quill'; // Importação do ReactQuill para edição do texto
+import 'react-quill/dist/quill.snow.css'; // Importação dos estilos do ReactQuill
 
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -103,16 +105,11 @@ const FormularioCard = () => {
                                     required
                                     margin="dense"
                                 />
-                                <TextField
-                                    value={descricaoCard}
-                                    onChange={evento => setDescricaoCard(evento.target.value)}
-                                    label="Descrição da atividade"
-                                    variant="standard"
-                                    fullWidth
-                                    required
-                                    multiline
-                                    rows={2}
-                                    margin="dense"
+                                <Typography variant="h6" sx={{ mt: 2 }}>Descrição da atividade</Typography>
+                                <ReactQuill 
+                                    value={descricaoCard} 
+                                    onChange={setDescricaoCard} 
+                                    theme="snow"
                                 />
                                 <Button sx={{ marginTop: 3 }} type="submit" fullWidth variant="outlined">Salvar</Button>
                             </Box>
@@ -132,14 +129,11 @@ const FormularioCard = () => {
                             value={novoCardTitulo}
                             onChange={(e) => setNovoCardTitulo(e.target.value)}
                         />
-                        <TextField
-                            margin="dense"
-                            id="descricao"
-                            label="Descrição"
-                            type="text"
-                            fullWidth
-                            value={novoCardDescricao}
-                            onChange={(e) => setNovoCardDescricao(e.target.value)}
+                        <Typography variant="h6" sx={{ mt: 2 }}>Descrição</Typography>
+                        <ReactQuill 
+                            value={novoCardDescricao} 
+                            onChange={setNovoCardDescricao} 
+                            theme="snow"
                         />
                     </DialogContent>
                     <DialogActions>

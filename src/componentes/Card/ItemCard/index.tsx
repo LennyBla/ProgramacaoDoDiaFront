@@ -49,14 +49,14 @@ function ItemCard({ cardColorClass, id, titulo, descricao, onClick, index }: Ite
     <li className={`${styles.itemCard} ${colorClass}`} onClick={onClick}>
 
       <div className={styles.cardContent}>
-        <div className={styles.cardHeader}>
+      <div className={styles.cardHeader}>
           {titulo ? (
-            <h3 className={styles.cardTitle}>{titulo}</h3>
+            <h3 className={styles.cardTitle} dangerouslySetInnerHTML={{ __html: titulo }} /> 
           ) : (
             <Skeleton width={200} height={20} />
           )}
           {descricao ? (
-            <p className={styles.cardDescription}>{descricao}</p>
+            <div className={styles.cardDescription} dangerouslySetInnerHTML={{ __html: descricao }} />
           ) : (
             <Skeleton count={3} width={200} height={15} />
           )}

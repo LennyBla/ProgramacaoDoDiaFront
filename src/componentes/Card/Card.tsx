@@ -50,8 +50,8 @@ const Card: React.FC<CardProps> = ({ cardColorClass }) => {
               overlayClassName={styles.Overlay} 
             >
               <button className={styles.cardCloseButton} onClick={closeModal}>X</button>
-              <h2>{card.titulo}</h2>
-              <p>{card.descricao}</p>
+              <h2 dangerouslySetInnerHTML={{ __html: card.titulo }} /> {/* Renderiza o título como HTML */}
+              <div dangerouslySetInnerHTML={{ __html: card.descricao }} /> {/* Renderiza a descrição como HTML */}
             </Modal>
           </div>
         ))}
