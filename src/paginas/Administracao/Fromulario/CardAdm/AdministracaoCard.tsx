@@ -7,10 +7,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import AddIcon from '@mui/icons-material/Add';
 
+import ReactQuill from 'react-quill'; 
+import 'react-quill/dist/quill.snow.css'; 
+
 const Administracao = () => {
     const [cards, setCards] = useState<ICard[]>([]);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [openDialog, setOpenDialog] = useState(false);
+    const [selectedCard, setSelectedCard] = useState<ICard | null>(null);
     const [novoCardTitulo, setNovoCardTitulo] = useState('');
     const [novoCardDescricao, setNovoCardDescricao] = useState('');
 
@@ -33,8 +37,12 @@ const Administracao = () => {
             .catch(error => console.error('Erro ao excluir card:', error));
     };
 
-    const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    const handleMenuOpen = (event: React.MouseEvent<HTMLElement>, card: ICard) => {
         setAnchorEl(event.currentTarget);
+        setSelectedCard(card);
+        setNovoCardTitulo(card.titulo);
+        setNovoCardDescricao(card.descricao);
+        setOpenDialog(true);
     };
 
     const handleMenuClose = () => {
@@ -43,10 +51,13 @@ const Administracao = () => {
 
     const handleOpenDialog = () => {
         setOpenDialog(true);
+        setNovoCardTitulo('');
+        setNovoCardDescricao('');
     };
 
     const handleCloseDialog = () => {
         setOpenDialog(false);
+        setSelectedCard(null);
     };
 
     const handleCriarNovoCard = () => {
@@ -66,6 +77,23 @@ const Administracao = () => {
             });
     };
 
+    const handleEditarCard = () => {
+        if (selectedCard) {
+            httpV2.put(`card/${selectedCard.id}/`, {
+                titulo: novoCardTitulo,
+                descricao: novoCardDescricao
+            })
+                .then(() => {
+                    alert("Card atualizado com sucesso!");
+                    fetchCards();
+                    handleCloseDialog();
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+    };
+
     return (
         <TableContainer component={Paper}>
             <Typography component="h1" variant="h4">Lista de Recreação</Typography>
@@ -81,9 +109,11 @@ const Administracao = () => {
                     {cards.map(card => (
                         <TableRow key={card.id}>
                             <TableCell>{card.titulo}</TableCell>
-                            <TableCell>{card.descricao}</TableCell>
                             <TableCell>
-                                <IconButton aria-label="Menu" onClick={handleMenuOpen}>
+                                <div dangerouslySetInnerHTML={{ __html: card.descricao }} /> {/* Renderiza a descrição como HTML */}
+                            </TableCell>
+                            <TableCell>
+                                <IconButton aria-label="Menu" onClick={(event) => handleMenuOpen(event, card)}>
                                     <FontAwesomeIcon icon={faEllipsisV} />
                                 </IconButton>
                                 <Menu
@@ -91,8 +121,7 @@ const Administracao = () => {
                                     open={Boolean(anchorEl)}
                                     onClose={handleMenuClose}
                                 >
-                                    <MenuItem component={RouterLink} to={`/admin/card/${card.id}`} onClick={handleMenuClose}> Editar </MenuItem>
-
+                                    <MenuItem onClick={handleCloseDialog}>Editar</MenuItem>
                                     <MenuItem onClick={() => excluir(card)}>Excluir</MenuItem>
                                 </Menu>
                             </TableCell>
@@ -104,7 +133,7 @@ const Administracao = () => {
                 <AddIcon />
             </Fab>
             <Dialog open={openDialog} onClose={handleCloseDialog}>
-                <DialogTitle>Criar Novo Card</DialogTitle>
+                <DialogTitle>{selectedCard ? "Editar Card" : "Criar Novo Card"}</DialogTitle>
                 <DialogContent>
                     <TextField
                         autoFocus
@@ -116,19 +145,18 @@ const Administracao = () => {
                         value={novoCardTitulo}
                         onChange={(e) => setNovoCardTitulo(e.target.value)}
                     />
-                    <TextField
-                        margin="dense"
-                        id="descricao"
-                        label="Descrição"
-                        type="text"
-                        fullWidth
-                        value={novoCardDescricao}
-                        onChange={(e) => setNovoCardDescricao(e.target.value)}
+                    <Typography variant="h6" sx={{ mt: 2 }}>Descrição</Typography>
+                    <ReactQuill 
+                        value={novoCardDescricao} 
+                        onChange={setNovoCardDescricao} 
+                        theme="snow"
                     />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleCloseDialog}>Cancelar</Button>
-                    <Button onClick={handleCriarNovoCard}>Criar</Button>
+                    <Button onClick={selectedCard ? handleEditarCard : handleCriarNovoCard}>
+                        {selectedCard ? "Salvar" : "Criar"}
+                    </Button>
                 </DialogActions>
             </Dialog>
         </TableContainer>
