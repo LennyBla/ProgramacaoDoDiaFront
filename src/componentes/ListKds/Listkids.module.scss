@@ -1,27 +1,23 @@
-.item {
-    border-radius: 5px;
-    margin: 20px 0;
+
+  .item {
     padding: 20px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    margin-bottom: 20px;
   
-    h3 {
-      color: #343a40;
-      font-size: 1.5em;
+    .title {
       margin-bottom: 10px;
-      grid-column: span 4; 
+      font-size: 1.5em;
+      font-weight: bold;
     }
   
     p {
-      color: #6c757d;
-      font-size: 1em;
-      line-height: 1.5;
-      margin-bottom: 0px;
+      margin: 5px 0;
+      font-size: 1.1em;
+    }
   
-      &:last-child {
-        margin-bottom: 0;
-      }
+    strong {
+      font-weight: bold;
     }
   }
   

@@ -1,73 +1,74 @@
 .Rodape {
-    margin-top: 2.7rem;
-    background-color: #103f1f;
-    color: #fff;
+  background-color: #103f1f;
+  color: #fff;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 1rem;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+
+  & > div {
+    flex: 1 1 100%;
+    text-align: center;
+    margin: 0.5rem 0;
+  }
+
+  ul {
+    padding: 0;
+    list-style: none;
     display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    align-items: center;
-    padding: 1rem;
-  
-    & > div {
-      flex: 1 1 100%;
-      text-align: center;
-      margin: 0.5rem 0;
-    }
-  
-    ul {
-      padding: 0;
-      list-style: none;
-      display: flex;
-      justify-content: center;
-  
-      li {
+    justify-content: center;
+
+    li {
+      display: inline-block;
+      margin: 0 5px;
+
+      a {
+        width: 36px;
+        height: 36px;
         display: inline-block;
-        margin: 0 5px;
-  
-        a {
-          width: 36px;
-          height: 36px;
-          display: inline-block;
-          text-align: center;
-          line-height: 36px;
-          background-color: #fff;
-          border-radius: 50%;
-          color: #363e50; 
-          text-decoration: none;
-          transition: transform 0.2s ease-in-out;
-        }
-  
-        a:hover {
-          transform: scale(1.1);
-          color: #103f1f; 
-          background-color: #ffffff;
-        }
+        text-align: center;
+        line-height: 36px;
+        background-color: #fff;
+        border-radius: 50%;
+        color: #363e50; 
+        text-decoration: none;
+        transition: transform 0.2s ease-in-out;
       }
-    }
-  
-    @media (min-width: 600px) {
-      & > div {
-        flex: 1;
-        margin: 0.5rem;
-      }
-  
-      ul {
-        justify-content: space-evenly;
-      }
-    }
-  
-    @media (min-width: 768px) {
-      & > div {
-        flex: 1;
-        margin: 0 1rem;
-      }
-    }
-  
-    @media (min-width: 992px) {
-      & > div {
-        flex: 0 1 auto;
-        margin: 0 2rem;
+
+      a:hover {
+        transform: scale(1.1);
+        color: #103f1f; 
+        background-color: #ffffff;
       }
     }
   }
-  
+
+  @media (min-width: 600px) {
+    & > div {
+      flex: 1;
+      margin: 0.5rem;
+    }
+
+    ul {
+      justify-content: space-evenly;
+    }
+  }
+
+  @media (min-width: 768px) {
+    & > div {
+      flex: 1;
+      margin: 0 1rem;
+    }
+  }
+
+  @media (min-width: 992px) {
+    & > div {
+      flex: 0 1 auto;
+      margin: 0 2rem;
+    }
+  }
+}

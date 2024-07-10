@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Button, Paper, Table, TableBody, TableCell, TableContainer, Typography, TableHead, TableRow, Grid, FormControlLabel, Checkbox } from "@mui/material";
-import useMediaQuery from '@mui/material/useMediaQuery';
 import { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { httpV2 } from "../../../../http";
@@ -15,23 +14,18 @@ const AdministracaoKids = () => {
   
 
   useEffect(() => {
-    // Carregar dados do armazenamento local, se disponível
     const savedCheckedValues = localStorage.getItem('checkedValues');
     if (savedCheckedValues) {
       setCheckedValues(JSON.parse(savedCheckedValues));
     }
 
     httpV2.get<Ikid[]>("kid/").then((response) => {
-      // Inicializar checkedValues com os valores iniciais de cada criança
       const initialCheckedValues: Record<string, { present: boolean }> = {};
       response.data.forEach((kid) => {
-        // Verificar se já existe um valor no localStorage para essa criança
         const storedValue = localStorage.getItem(kid.id.toString());
         if (storedValue) {
-          // Se existir, usar o valor armazenado
           initialCheckedValues[kid.id.toString()] = { present: JSON.parse(storedValue) };
         } else {
-          // Se não existir, inicializar como false
           initialCheckedValues[kid.id.toString()] = { present: false };
         }
       });
@@ -40,7 +34,6 @@ const AdministracaoKids = () => {
     });
   }, []);
 
-  // Salvar os valores dos checkboxes no armazenamento local sempre que houver mudanças
   useEffect(() => {
     localStorage.setItem('checkedValues', JSON.stringify(checkedValues));
   }, [checkedValues]);
@@ -70,11 +63,9 @@ const AdministracaoKids = () => {
   };
 
   return (
-    
-    <TableContainer component={Paper}>
-     <Typography component="h1" variant="h4" gutterBottom sx={{ mb: 2 }}>Lista de Criaças</Typography>
-      <Table sx={{ minWidth: 650 }}> {/* Set minimum table width */}
-      
+    <TableContainer component={Paper} sx={{ mx: 'auto', maxWidth: '90%' }}>
+      <Typography component="h1" variant="h4" gutterBottom sx={{ mb: 2, textAlign: 'center' }}>Lista de Crianças</Typography>
+      <Table sx={{ minWidth: 650 }}>
         <TableHead>
           <TableRow>
             <TableCell sx={{ fontWeight: 'bold', width: 150 }}>Nome</TableCell>
@@ -108,18 +99,12 @@ const AdministracaoKids = () => {
               </TableRow>
               {detalhesAbertos && kidSelecionada && kidSelecionada.id === kid.id && (
                 <TableRow>
-                  <TableCell /> {/* Empty cell to maintain table structure */}
-                  <TableCell /> {/* Empty cell to maintain table structure */}
-                  <TableCell colSpan={5}>
-                    <Grid container spacing={2} sx={{ px: 2 }}> {/* Add padding for better spacing */}
+                  <TableCell colSpan={7}>
+                    <Grid container spacing={2} sx={{ px: 0 }}>
                       <Grid item xs={12}>
                         <FormControlLabel
                           control={<Checkbox checked={checkedValues[kid.id.toString()]?.present || false} onChange={(event) => handleChangeCheckbox(event, kid)} />}
                           label="Criança Presente"
-                        />
-                        <FormControlLabel
-                          control={<Checkbox checked={!checkedValues[kid.id.toString()]?.present} onChange={(event) => handleChangeCheckbox(event, kid)} />}
-                          label="Criança Não Presente"
                         />
                       </Grid>
                       <Grid item xs={12}>

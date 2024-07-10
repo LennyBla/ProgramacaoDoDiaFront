@@ -40,9 +40,6 @@ const Administracao = () => {
     const handleMenuOpen = (event: React.MouseEvent<HTMLElement>, card: ICard) => {
         setAnchorEl(event.currentTarget);
         setSelectedCard(card);
-        setNovoCardTitulo(card.titulo);
-        setNovoCardDescricao(card.descricao);
-        setOpenDialog(true);
     };
 
     const handleMenuClose = () => {
@@ -53,6 +50,15 @@ const Administracao = () => {
         setOpenDialog(true);
         setNovoCardTitulo('');
         setNovoCardDescricao('');
+    };
+
+    const handleOpenEditDialog = () => {
+        if (selectedCard) {
+            setNovoCardTitulo(selectedCard.titulo);
+            setNovoCardDescricao(selectedCard.descricao);
+            setOpenDialog(true);
+            handleMenuClose();
+        }
     };
 
     const handleCloseDialog = () => {
@@ -121,7 +127,7 @@ const Administracao = () => {
                                     open={Boolean(anchorEl)}
                                     onClose={handleMenuClose}
                                 >
-                                    <MenuItem onClick={handleCloseDialog}>Editar</MenuItem>
+                                    <MenuItem onClick={handleOpenEditDialog}>Editar</MenuItem>
                                     <MenuItem onClick={() => excluir(card)}>Excluir</MenuItem>
                                 </Menu>
                             </TableCell>

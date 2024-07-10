@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Box, Button, TextField, Typography, Container, Paper} from "@mui/material";
-import { useParams } from "react-router-dom";
+import { Box, Button, TextField, Typography, Container, Paper } from "@mui/material";
+import { useParams, useNavigate } from "react-router-dom";
 import { httpV2 } from "../../../../http";
 import { Ikid } from "../../../../interfaces/Ikid";
 
 const FormularioKids = () => {
-    const parametros = useParams();
+    const parametros = useParams<{ id: string }>();
+    const navigate = useNavigate();
     const [nomeKid, setNomeKid] = useState('');
     const [idadeKid, setIdadeKid] = useState<number | ''>('');
     const [responsaveisKid, setResponsaveisKid] = useState('');
@@ -27,9 +28,12 @@ const FormularioKids = () => {
                     setEmail(resposta.data.email);
                     setNumeroApartamento(resposta.data.numeroApartamento);
                     setHorarioCheckout(resposta.data.horarioCheckout.slice(0, 16));
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar dados:', error);
                 });
         }
-    }, [parametros]);
+    }, [parametros.id]);
 
     const aoSubmeterForm = (evento: React.FormEvent<HTMLFormElement>) => {
         evento.preventDefault();
@@ -51,6 +55,7 @@ const FormularioKids = () => {
             httpV2.put(`kid/${parametros.id}/`, dataToSend)
                 .then(() => {
                     alert("Atualizado com sucesso!");
+                    navigate('/admin/kids');
                 })
                 .catch(error => {
                     console.error('Erro ao atualizar:', error);
@@ -68,6 +73,7 @@ const FormularioKids = () => {
                     setHorarioCheckout("");
 
                     alert("Cadastrado com sucesso!");
+                    navigate('/admin/kids');
                 })
                 .catch(error => {
                     console.error('Erro ao cadastrar:', error);
@@ -81,8 +87,7 @@ const FormularioKids = () => {
                 <Container maxWidth="lg" sx={{ mt: 1 }}>
                     <Paper sx={{ p: 2 }}>
                         <Box sx={{ display: 'flex', flexDirection: "column", alignItems: "center", flexGrow: 1 }}>
-                        <Typography component="h1" variant="h4">Cadastro de Crianças</Typography>
-
+                            <Typography component="h1" variant="h4">Cadastro de Crianças</Typography>
                             <Box component="form" sx={{ width: '70%' }} onSubmit={aoSubmeterForm}>
                                 <TextField
                                     value={nomeKid}

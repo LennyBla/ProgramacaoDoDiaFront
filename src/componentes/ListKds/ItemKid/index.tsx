@@ -10,20 +10,18 @@ interface ItemKidProps {
 const ItemKid: React.FC<ItemKidProps> = ({ kid }) => {
   const { nome, idade, responsaveis, obs, numeroContato, email, numeroApartamento, horarioCheckout } = kid;
 
-  // Formate a data e hora de checkout usando date-fns
   const formattedCheckout = format(new Date(horarioCheckout), 'dd/MM/yyyy - HH:mm');
 
   return (
     <div className={styles.item}>
-      <h3 >Nome: {nome}</h3>
-      <p>Idade: {idade} anos</p>
-      <p>Responsáveis: {responsaveis}</p>
-      <p>Observações: {obs}</p>
-      <p>Número de contato: {numeroContato}</p>
-      <p>Email: {email}</p>
-      <p>Numero: {numeroContato}</p>
-      <p>Número do Apartamento: {numeroApartamento}</p>
-      <p>Horário de Checkout: {formattedCheckout}</p>
+      <h3 className={styles.title}>Nome: {nome}</h3>
+      <p><strong>Idade:</strong> {idade} anos</p>
+      <p><strong>Responsáveis:</strong> {responsaveis}</p>
+      <p><strong>Observações:</strong> {obs}</p>
+      <p><strong>Número de contato:</strong> {numeroContato}</p>
+      <p><strong>Email:</strong> {email}</p>
+      <p><strong>Número do Apartamento:</strong> {numeroApartamento}</p>
+      <p><strong>Horário de Checkout:</strong> {formattedCheckout}</p>
     </div>
   );
 };
