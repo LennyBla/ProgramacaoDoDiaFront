@@ -1,146 +1,40 @@
 .itemCard {
-  display: flex;
-  flex-direction: row;
-  justify-content: center; /* Centralizes content horizontally */
-  align-items: center;
-  width: 70%;
-  max-width: 1000px;
-  max-height: 210px; 
-  margin: auto; /* Ensures centering on most devices */
-  border-radius: 20px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.70);
-  padding: 25px;
-  color: #000;
-  overflow: hidden;
-  transition: all 0.3s ease;
-  margin-bottom: 40px;
-  animation: fadeIn 2s ease-in-out;
   transition: transform 0.2s ease-in-out;
-
-.itemCard:hover{
-  transform: scale(1.1);
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@media (max-width: 768px) {
-  .itemCard {
-    flex-direction: column;
-    max-width: 100%;
-    padding: 10px;
-
-    }
-  .cardImage {
-    display: none; /* Esconde a imagem em dispositivos móveis e tablets */
-  }
-}
-
-@media (max-width: 576px) {
-  .itemCard {
-    padding: 10px;
+  &:hover {
+    transform: scale(1.05);
   }
 }
 
 .cardContent {
-  flex: 1;
-  display: flex; /* Garantir que o flex seja aplicado corretamente */
-  flex-direction: column; 
-}
-
-.cardHeader {
-  margin-top: 55px;
   display: flex;
-  justify-content: flex-start; 
   flex-direction: column;
 }
 
 .cardTitle {
   font-size: 1.5rem;
-  color:#fff;
-  margin: 0;
-  flex: 1;
 }
 
 .cardDescription {
   font-size: 1rem;
-  color:#fff;
-  padding: 10px;
 }
 
-.cardImage {
-  height: auto;
-  object-fit: cover; 
-  margin-left: 20px; 
+.color1 {
+  background: #FF6766 !important;
 }
 
-.btn {
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  padding: 10px 20px;
-  border-radius: 10px;
-  text-decoration: none;
-  font-weight: bold;
-  text-transform: uppercase;
+.color2 {
+  background: #F9C20B !important;
 }
 
-&.color1 { background: #FF6766; }
-&.color2 { background: #F9C20B; }
-&.color3 { background: #ABCD52; }
-&.color4 { background: #1AB8FF; }
+.color3 {
+  background: #ABCD52 !important;
 }
 
-.btn button {
-  text-decoration: none;
+.color4 {
+  background: #1AB8FF !important;
 }
 
-.btn a {
-  text-decoration: none;
-}
 
-.btn {
-  display: flex;
-  justify-content: center; 
-  align-items: center; 
-  text-decoration: none;
-}
-
-.Modal {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  width: 300px;
-  height: 200px;
-  z-index: 1000;
-}
-
-.cardCloseButton {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
-  border: none;
-  font-size: 18px;
-  cursor: pointer;
-}
-
-.Overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1000;
+.MuiDialogContent-root {
+  overflow: hidden;
 }

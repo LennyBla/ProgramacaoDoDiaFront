@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { ICard } from '../../interfaces/ICard';
 import ItemCard from './ItemCard';
-import styles from './Card.module.scss';
 import { httpV1 } from "../../http";
 import { IPaginacao } from "../../interfaces/IPaginacao";
-import Modal from 'react-modal';
+import { Dialog, DialogTitle, DialogContent, IconButton, Container, Box } from "@mui/material";
+import CloseIcon from '@mui/icons-material/Close';
 
-interface CardProps {
+interface CardListProps {
   cardColorClass: string;
 }
 
-const Card: React.FC<CardProps> = ({ cardColorClass }) => {
+const Card: React.FC<CardListProps> = ({ cardColorClass }) => {
   const [cards, setCards] = useState<ICard[]>([]);
   const [activePopupId, setActivePopupId] = useState<number | null>(null);
 
@@ -33,30 +33,33 @@ const Card: React.FC<CardProps> = ({ cardColorClass }) => {
   };
 
   return (
-    <aside className={styles.Card}>
-      <ul>
-        {cards.map((card, index) => (
-          <div key={card.id}>
-            <ItemCard
-              {...card}
-              cardColorClass={cardColorClass}
-              onClick={() => togglePopup(card.id)}
-              index={index}
-            />
-            <Modal
-              isOpen={activePopupId === card.id}
-              onRequestClose={closeModal}
-              className={`${styles.Modal} ${styles[cardColorClass]}`} 
-              overlayClassName={styles.Overlay} 
-            >
-              <button className={styles.cardCloseButton} onClick={closeModal}>X</button>
-              <h2 dangerouslySetInnerHTML={{ __html: card.titulo }} /> {/* Renderiza o título como HTML */}
-              <div dangerouslySetInnerHTML={{ __html: card.descricao }} /> {/* Renderiza a descrição como HTML */}
-            </Modal>
-          </div>
-        ))}
-      </ul>
-    </aside>
+    <Container>
+      {cards.map((card, index) => (
+        <Box key={card.id}>
+          <ItemCard
+            {...card}
+            onClick={() => togglePopup(card.id)}
+            index={index}
+          />
+          <Dialog open={activePopupId === card.id} onClose={closeModal} fullWidth>
+            <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span dangerouslySetInnerHTML={{ __html: card.titulo }} />
+              <IconButton
+                edge="end"
+                color="inherit"
+                onClick={closeModal}
+                aria-label="close"
+              >
+                <CloseIcon />
+              </IconButton>
+            </DialogTitle>
+            <DialogContent dividers={false} sx={{ padding: '20px', overflow: 'hidden' }}>
+              <div dangerouslySetInnerHTML={{ __html: card.descricao }} />
+            </DialogContent>
+          </Dialog>
+        </Box>
+      ))}
+    </Container>
   );
 };
 

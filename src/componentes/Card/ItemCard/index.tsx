@@ -1,76 +1,84 @@
 import React, { useEffect, useState } from "react";
+import { Card, CardContent, CardMedia, Typography, Box, Skeleton } from "@mui/material";
 import { ICard } from "../../../interfaces/ICard";
-import Botao from '../../Botoes/Botao/Button';
-import styles from '../Card.module.scss';
-import Skeleton from 'react-loading-skeleton';
 import MeninaFundoAmarelo from '../MeninaFundoAmarelo.svg';
 import MeninoFundoVermelho from '../MeninoFundoVermelho.svg';
 import MeninoFundoAzul from '../MeninoFundoAzul.svg';
 import CriancasFundoVerde from '../CriancasFundoVerde.svg';
+import styles from '../Card.module.scss';
 
 interface ItemCardProps extends ICard {
   cardColorClass?: string;
   onClick: () => void;
-  index: number; 
+  index: number;
 }
 
-function ItemCard({ cardColorClass, id, titulo, descricao, onClick, index }: ItemCardProps) {
-  const [colorClass, setColorClass] = useState('');
+const ItemCard: React.FC<ItemCardProps> = ({ id, titulo, descricao, onClick, index }) => {
   const [cardImage, setCardImage] = useState<any>(null);
-  const [buttonColor, setButtonColor] = useState<string>('');
+  const [colorClass, setColorClass] = useState<string>('');
 
   useEffect(() => {
     const colors = ['color1', 'color2', 'color3', 'color4'];
-    setColorClass(styles[colors[index % colors.length]]);
+    const colorClass = colors[index % colors.length];
+    setColorClass(colorClass);
 
     switch (colorClass) {
-      case styles.color1:
+      case 'color1':
         setCardImage(MeninaFundoAmarelo);
-        setButtonColor('#F9C20B');
         break;
-      case styles.color2:
+      case 'color2':
         setCardImage(MeninoFundoVermelho);
-        setButtonColor('#FF6766');
         break;
-      case styles.color3:
+      case 'color3':
         setCardImage(MeninoFundoAzul);
-        setButtonColor('#1AB8FF');
         break;
-      case styles.color4:
+      case 'color4':
         setCardImage(CriancasFundoVerde);
-        setButtonColor('#ABCD52');
         break;
       default:
         setCardImage(null);
     }
-  }, [index, colorClass]);
+  }, [index]);
 
   return (
-    <li className={`${styles.itemCard} ${colorClass}`} onClick={onClick}>
-
-      <div className={styles.cardContent}>
-      <div className={styles.cardHeader}>
+    <Card
+      onClick={onClick}
+      className={`${styles.itemCard} ${styles[colorClass]}`}
+      sx={{
+        mb: 4,
+        cursor: 'pointer',
+        display: 'flex',
+        alignItems: 'center',
+        borderRadius: '20px',
+        boxShadow: '0 3px 8px rgba(0, 0, 0, 0.7)',
+        transition: 'transform 0.2s ease-in-out',
+        '&:hover': {
+          transform: 'scale(1.05)',
+        }
+      }}
+    >
+      <Box sx={{ flex: 1, p: 2 }}>
+        <CardContent>
           {titulo ? (
-            <h3 className={styles.cardTitle} dangerouslySetInnerHTML={{ __html: titulo }} /> 
+            <Typography variant="h5" dangerouslySetInnerHTML={{ __html: titulo }} />
           ) : (
             <Skeleton width={200} height={20} />
           )}
           {descricao ? (
-            <div className={styles.cardDescription} dangerouslySetInnerHTML={{ __html: descricao }} />
+            <Typography variant="body2" dangerouslySetInnerHTML={{ __html: descricao }} />
           ) : (
-            <Skeleton count={3} width={200} height={15} />
+            <Skeleton width={200} height={15} />
           )}
-        </div>
-        
-        {/* <Link to='/cadastro' className={styles.btn}>
-          <Botao tipo="button" classe={styles.botao} estilo={{ backgroundColor: buttonColor }}>
-            Cadastre-se
-          </Botao>
-        </Link> */}
-      </div>
-      <img src={cardImage} alt="" className={styles.cardImage} />
-
-    </li>
+        </CardContent>
+      </Box>
+      <CardMedia
+        component="img"
+        image={cardImage}
+        alt=""
+        sx={{ width: 150, height: '100%', display: { xs: 'none', md: 'block' } }}
+      />
+    </Card>
   );
-}
+};
+
 export default ItemCard;
