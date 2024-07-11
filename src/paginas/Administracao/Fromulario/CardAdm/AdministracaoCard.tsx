@@ -6,9 +6,8 @@ import { Button, Paper, Table, TableBody, TableCell, TableContainer, Typography,
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import AddIcon from '@mui/icons-material/Add';
-
-import ReactQuill from 'react-quill'; 
-import 'react-quill/dist/quill.snow.css'; 
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const Administracao = () => {
     const [cards, setCards] = useState<ICard[]>([]);
@@ -24,20 +23,26 @@ const Administracao = () => {
 
     const fetchCards = () => {
         httpV2.get<ICard[]>('card/')
-            .then(resposta => setCards(resposta.data))
+            .then(resposta => {
+                console.log("Cards fetched:", resposta.data); // Verificar os cards buscados
+                setCards(resposta.data);
+            })
             .catch(error => console.error('Erro ao buscar cards:', error));
     };
 
     const excluir = (cardASerExcluido: ICard) => {
+        console.log("Excluindo card com ID:", cardASerExcluido.id); // Verificar o ID do card a ser excluído
         httpV2.delete(`card/${cardASerExcluido.id}/`)
             .then(() => {
                 const listaAtualizada = cards.filter(card => card.id !== cardASerExcluido.id);
                 setCards(listaAtualizada);
+                console.log("Lista atualizada após exclusão:", listaAtualizada); // Verificar a lista após exclusão
             })
             .catch(error => console.error('Erro ao excluir card:', error));
     };
 
     const handleMenuOpen = (event: React.MouseEvent<HTMLElement>, card: ICard) => {
+        console.log("Menu aberto para card com ID:", card.id); // Log ao abrir o menu
         setAnchorEl(event.currentTarget);
         setSelectedCard(card);
     };
@@ -54,6 +59,7 @@ const Administracao = () => {
 
     const handleOpenEditDialog = () => {
         if (selectedCard) {
+            console.log("Editando card com ID:", selectedCard.id); // Log ao selecionar card para edição
             setNovoCardTitulo(selectedCard.titulo);
             setNovoCardDescricao(selectedCard.descricao);
             setOpenDialog(true);
@@ -100,6 +106,28 @@ const Administracao = () => {
         }
     };
 
+    useEffect(() => {
+        const targetNode = document.getElementById('root'); // Altere para o nó de destino apropriado
+        const config = { childList: true, subtree: true };
+
+        const callback = function (mutationsList: any, observer: any) {
+            for (let mutation of mutationsList) {
+                if (mutation.type === 'childList') {
+                    console.log('A child node has been added or removed.');
+                }
+            }
+        };
+
+        const observer = new MutationObserver(callback);
+        if (targetNode) {
+            observer.observe(targetNode, config);
+        }
+
+        return () => {
+            observer.disconnect();
+        };
+    }, []);
+
     return (
         <TableContainer component={Paper}>
             <Typography component="h1" variant="h4">Lista de Recreação</Typography>
@@ -124,7 +152,7 @@ const Administracao = () => {
                                 </IconButton>
                                 <Menu
                                     anchorEl={anchorEl}
-                                    open={Boolean(anchorEl)}
+                                    open={Boolean(anchorEl && selectedCard && selectedCard.id === card.id)}
                                     onClose={handleMenuClose}
                                 >
                                     <MenuItem onClick={handleOpenEditDialog}>Editar</MenuItem>
@@ -152,9 +180,9 @@ const Administracao = () => {
                         onChange={(e) => setNovoCardTitulo(e.target.value)}
                     />
                     <Typography variant="h6" sx={{ mt: 2 }}>Descrição</Typography>
-                    <ReactQuill 
-                        value={novoCardDescricao} 
-                        onChange={setNovoCardDescricao} 
+                    <ReactQuill
+                        value={novoCardDescricao}
+                        onChange={setNovoCardDescricao}
                         theme="snow"
                     />
                 </DialogContent>
