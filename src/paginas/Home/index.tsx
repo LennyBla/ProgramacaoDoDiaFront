@@ -8,8 +8,8 @@ import Card from '../../componentes/Card/Card';
 import Slide from '../../componentes/Slide/Slide';
 import MiniBanner from '../../componentes/MiniBanner/MiniBanner';
 import Botao from './../../componentes/Botoes/Botao/Button';
-import StylesGlobal from '../../Global.module.scss'
-import LogoRecreacao from '../../asset/confiranossaprogramao.png'
+import StylesGlobal from '../../Global.module.scss';
+import LogoRecreacao from '../../asset/confiranossaprogramao.png';
 
 function App() {
   const [atualizarPagina, setAtualizarPagina] = useState(false);
@@ -28,7 +28,7 @@ function App() {
       <Slide />
       <div className={styles.logoContainer}>
         <img src={LogoRecreacao} alt="Cataratas Park Hotel Logo" />
-       </div>
+      </div>
       <Link to='/cadastro' className={styles.btn}>
         <Botao classe={styles.botao} onClick={handleCadastro}>Cadastre-se</Botao>
       </Link>
@@ -37,6 +37,7 @@ function App() {
     </>
   );
 }
+
 //  <MiniBanner />
 //<Responsaveis />
 
