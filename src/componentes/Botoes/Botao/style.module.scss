@@ -1,6 +1,6 @@
 .botao {
   text-decoration: none;
-  background-color: #FF6766;
+  background-color: #1AB8FF;
   color: #ededed;
   text-transform: uppercase;
   padding: 10px 20px;
@@ -12,6 +12,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.30);
   align-items: center; 
   transition: transform 0.2s ease-in-out;
+  margin-bottom: 20px;
 }
 
 .botao:hover {

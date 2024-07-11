@@ -1,6 +1,4 @@
 import { Routes, Route } from 'react-router-dom';
-import '@fortawesome/fontawesome-free/css/all.min.css';
-
 import Home from './paginas/Home';
 import AdministracaoCard from './paginas/Administracao/Fromulario/CardAdm/AdministracaoCard';
 import FormularioCard from './paginas/Administracao/Fromulario/CardAdm/FormularioCard';

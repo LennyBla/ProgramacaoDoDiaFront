@@ -1,4 +1,5 @@
 .Rodape {
+  margin-top: 2.7rem;
   background-color: #103f1f;
   color: #fff;
   display: flex;
@@ -6,9 +7,6 @@
   flex-wrap: wrap;
   align-items: center;
   padding: 1rem;
-  position: relative;
-  bottom: 0;
-  width: 100%;
 
   & > div {
     flex: 1 1 100%;

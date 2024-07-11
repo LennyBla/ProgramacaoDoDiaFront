@@ -48,16 +48,17 @@ const ItemCard: React.FC<ItemCardProps> = ({ id, titulo, descricao, onClick, ind
         mb: 4,
         cursor: 'pointer',
         display: 'flex',
-        alignItems: 'center',
+        alignItems: 'stretch',
         borderRadius: '20px',
         boxShadow: '0 3px 8px rgba(0, 0, 0, 0.7)',
         transition: 'transform 0.2s ease-in-out',
         '&:hover': {
           transform: 'scale(1.05)',
-        }
+        },
+        color: '#fff', // Adicionando a cor branca ao texto do Card
       }}
     >
-      <Box sx={{ flex: 1, p: 2 }}>
+      <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', p: 2 }}>
         <CardContent>
           {titulo ? (
             <Typography variant="h5" dangerouslySetInnerHTML={{ __html: titulo }} />
@@ -75,7 +76,13 @@ const ItemCard: React.FC<ItemCardProps> = ({ id, titulo, descricao, onClick, ind
         component="img"
         image={cardImage}
         alt=""
-        sx={{ width: 150, height: '100%', display: { xs: 'none', md: 'block' } }}
+        sx={{
+          width: 400, // Tamanho da foto
+          height: '100%',
+          objectFit: 'cover',
+          display: { xs: 'none', md: 'block' }, // Esconde a imagem em dispositivos móveis e tablets
+          borderRadius: '0 20px 20px 0',
+        }}
       />
     </Card>
   );
