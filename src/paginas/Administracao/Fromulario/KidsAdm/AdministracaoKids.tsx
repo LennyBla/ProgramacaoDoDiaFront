@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Paper, Table, TableBody, TableCell, TableContainer, Typography, TableHead, TableRow, Grid, FormControlLabel, Checkbox } from "@mui/material";
-import { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { httpV2 } from "../../../../http";
 import { Ikid } from "../../../../interfaces/Ikid";
@@ -11,7 +10,6 @@ const AdministracaoKids = () => {
   const [kidSelecionada, setKidSelecionada] = useState<Ikid | null>(null);
   const [detalhesAbertos, setDetalhesAbertos] = useState<boolean>(false);
   const [checkedValues, setCheckedValues] = useState<Record<string, { present: boolean }>>({});
-  
 
   useEffect(() => {
     const savedCheckedValues = localStorage.getItem('checkedValues');
@@ -20,6 +18,7 @@ const AdministracaoKids = () => {
     }
 
     httpV2.get<Ikid[]>("kid/").then((response) => {
+      console.log("Response from API:", response.data); // Verificar a resposta da API
       const initialCheckedValues: Record<string, { present: boolean }> = {};
       response.data.forEach((kid) => {
         const storedValue = localStorage.getItem(kid.id.toString());
@@ -39,13 +38,16 @@ const AdministracaoKids = () => {
   }, [checkedValues]);
 
   const excluir = (kidASerExcluido: Ikid) => {
+    console.log("Excluindo criança com ID:", kidASerExcluido.id); // Verificar o ID da criança a ser excluída
     httpV2.delete(`kid/${kidASerExcluido.id}/`).then(() => {
       const listaKid = kids.filter((kid) => kid.id !== kidASerExcluido.id);
       setKids(listaKid);
+      console.log("Lista atualizada após exclusão:", listaKid); // Verificar a lista após exclusão
     });
   };
 
   const abrirDetalhes = (kid: Ikid) => {
+    console.log("Abrindo detalhes para:", kid.id); // Verificar qual criança está sendo selecionada
     if (kidSelecionada && kidSelecionada.id === kid.id) {
       setDetalhesAbertos(false);
       setKidSelecionada(null);
@@ -56,6 +58,7 @@ const AdministracaoKids = () => {
   };
 
   const handleChangeCheckbox = (event: React.ChangeEvent<HTMLInputElement>, kid: Ikid) => {
+    console.log("Alterando presença para:", kid.id); // Verificar qual criança está sendo alterada
     const updatedCheckedValues = { ...checkedValues };
     updatedCheckedValues[kid.id.toString()] = { present: event.target.checked };
     setCheckedValues(updatedCheckedValues);
