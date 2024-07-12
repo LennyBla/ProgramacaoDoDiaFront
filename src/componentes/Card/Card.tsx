@@ -21,16 +21,20 @@ const Card: React.FC<CardListProps> = ({ cardColorClass }) => {
   }, [page]);
 
   const fetchCards = () => {
+    console.log(`Buscando cards para a página: ${page}`);
     httpV1.get<IPaginacao<ICard>>(`/card/?page=${page}`)
       .then(response => {
-        if (response.data.results.length === 0) {
-          setHasMore(false); // No more cards to fetch
-        } else {
+        console.log('Resposta:', response.data);
+        if (!response.data.next) {
+          setHasMore(false); // Sem mais cards para buscar
+        }
+        if (response.data.results.length > 0) {
           setCards(prevCards => [...prevCards, ...response.data.results]); // Adicionar paginação para carregar mais de 25 cards
         }
       })
       .catch(error => {
-        console.log(error);
+        console.log('Erro:', error);
+        setHasMore(false); // Parar de tentar buscar mais cards em caso de erro
       });
   };
 
@@ -80,16 +84,17 @@ const Card: React.FC<CardListProps> = ({ cardColorClass }) => {
         </Box>
       ))}
       <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}> {/* Centralizar o botão */}
-        {hasMore ? (
+        {hasMore && (
           <Button 
             onClick={loadMoreCards} 
             variant="contained" 
             color="primary" 
             sx={{ borderRadius: '50px' }} /* Deixar o botão mais arredondado */
           >
-            Carregar Mais
+            Ver Mais
           </Button>
-        ) : (
+        )}
+        {cards.length > 25 && (
           <Button 
             onClick={viewLessCards} 
             variant="contained" 
