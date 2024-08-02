@@ -72,7 +72,9 @@ class AutenticaStore {
 
   ensureCsrfToken() {
     console.log("Ensuring CSRF token");
-    if (!Cookies.get('csrftoken')) {
+    const csrfToken = Cookies.get('csrftoken');
+    if (!csrfToken) {
+      console.log("CSRF token not found, fetching...");
       httpV2.get('/csrf-token/')
         .then(response => {
           const csrfToken = response.data.csrfToken;
@@ -83,7 +85,7 @@ class AutenticaStore {
           console.error('Failed to get CSRF token:', error);
         });
     } else {
-      console.log("CSRF token already set");
+      console.log("CSRF token already set:", csrfToken);
     }
   }
 
