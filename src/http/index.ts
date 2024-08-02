@@ -21,6 +21,8 @@ httpV2.interceptors.request.use((config) => {
     if (token) {
         console.log('Adding Authorization header');
         config.headers['Authorization'] = `Bearer ${token}`;
+    } else {
+        console.warn('No token found in user data');
     }
 
     const csrfToken = Cookies.get('csrftoken');
@@ -53,15 +55,18 @@ httpV2.interceptors.response.use(
                     return axios.request(config);
                 } catch (refreshError) {
                     console.error('Error refreshing token', refreshError);
-                    autenticaStore.logout();
                     autenticaStore.setSessaoExpirada(true);
                     return Promise.reject(refreshError);
                 }
             }
         }
-
+        if (autenticaStore.sessaoExpirada) {
+            console.log('Session has expired, redirecting to login');
+            autenticaStore.logout();
+        }
         return Promise.reject(error);
     }
 );
 
 export { httpV1, httpV2 };
+ 
