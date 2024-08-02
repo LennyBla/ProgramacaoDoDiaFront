@@ -35,6 +35,7 @@ class AutenticaStore {
   logout() {
     console.log('Logout action');
     this.clearAuthData();
+    window.location.href = '/login'; // Redirecionar para a página de login ao fazer logout
   }
 
   setAuthData(username: string, token: string, expirationTime: number) {

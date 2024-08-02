@@ -19,9 +19,9 @@ import autenticaStore from './stores/autentica.store';
 
 const App: React.FC = observer(() => {
   const handleCloseSessaoExpirada = () => {
+    console.log('Session expired dialog closed, logging out');
     autenticaStore.setSessaoExpirada(false);
     autenticaStore.logout();
-    window.location.href = '/login';
   };
 
   return (
