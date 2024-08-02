@@ -73,13 +73,15 @@ class AutenticaStore {
   ensureCsrfToken() {
     console.log("Ensuring CSRF token");
     if (!Cookies.get('csrftoken')) {
-      httpV2.get('/csrf-token/').then(response => {
-        const csrfToken = response.data.csrfToken;
-        Cookies.set('csrftoken', csrfToken);
-        console.log("CSRF token obtained:", csrfToken);
-      }).catch(error => {
-        console.error('Failed to get CSRF token:', error);
-      });
+      httpV2.get('/csrf-token/')
+        .then(response => {
+          const csrfToken = response.data.csrfToken;
+          Cookies.set('csrftoken', csrfToken);
+          console.log("CSRF token obtained:", csrfToken);
+        })
+        .catch(error => {
+          console.error('Failed to get CSRF token:', error);
+        });
     } else {
       console.log("CSRF token already set");
     }
