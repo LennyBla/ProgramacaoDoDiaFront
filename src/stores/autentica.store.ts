@@ -1,5 +1,5 @@
 import { makeObservable, observable, action } from "mobx";
-import { httpV2 } from '../http'
+import { httpV2 } from '../http';
 
 interface IUsuario {
   username: string;
@@ -10,14 +10,17 @@ interface IUsuario {
 class AutenticaStore {
   estaAutenticado = false;
   usuario: IUsuario = { username: "", token: "", expirationTime: 0 };
+  sessaoExpirada = false;
 
   constructor() {
     makeObservable(this, {
       estaAutenticado: observable,
       usuario: observable,
+      sessaoExpirada: observable,
       login: action,
       logout: action,
-      refreshToken: action, 
+      refreshToken: action,
+      setSessaoExpirada: action,
     });
 
     this.initializeAuth();
@@ -67,8 +70,13 @@ class AutenticaStore {
       this.setAuthData(this.usuario.username, newToken, newExpirationTime);
     } catch (error) {
       console.error('Error refreshing token:', error);
-      this.logout(); 
+      this.logout();
+      this.setSessaoExpirada(true);
     }
+  }
+
+  setSessaoExpirada(expirada: boolean) {
+    this.sessaoExpirada = expirada;
   }
 }
 
