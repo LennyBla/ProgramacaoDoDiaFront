@@ -71,7 +71,7 @@ class AutenticaStore {
     } catch (error) {
       console.error('Error refreshing token:', error);
       this.logout();
-      this.setSessaoExpirada(true);
+      this.setSessaoExpirada(true); 
     }
   }
 
