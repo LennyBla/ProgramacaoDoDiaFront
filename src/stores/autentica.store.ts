@@ -81,8 +81,7 @@ class AutenticaStore {
       this.setAuthData(this.usuario.username, newToken, newExpirationTime);
     } catch (error) {
       console.error('Error refreshing token:', error);
-      this.logout();
-      this.setSessaoExpirada(true);
+      this.setSessaoExpirada(true); // Marcar a sessão como expirada
     }
     console.log('Refreshing token - End');
   }

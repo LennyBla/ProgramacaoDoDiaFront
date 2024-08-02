@@ -55,18 +55,16 @@ httpV2.interceptors.response.use(
                     return axios.request(config);
                 } catch (refreshError) {
                     console.error('Error refreshing token', refreshError);
-                    autenticaStore.setSessaoExpirada(true);
+                    autenticaStore.setSessaoExpirada(true); // Marcar a sessão como expirada
                     return Promise.reject(refreshError);
                 }
             }
         }
         if (autenticaStore.sessaoExpirada) {
-            console.log('Session has expired, redirecting to login');
-            autenticaStore.logout();
+            console.log('Session has expired, showing session expired dialog');
         }
         return Promise.reject(error);
     }
 );
 
 export { httpV1, httpV2 };
- 
