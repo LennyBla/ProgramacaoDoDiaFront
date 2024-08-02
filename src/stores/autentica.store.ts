@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 interface IUsuario {
   username: string;
   token: string;
-  expirationTime: number; 
+  expirationTime: number;
 }
 
 class AutenticaStore {
@@ -22,6 +22,12 @@ class AutenticaStore {
       logout: action,
       refreshToken: action,
       setSessaoExpirada: action,
+      initializeAuth: action,
+      setAuthData: action,
+      clearAuthData: action,
+      ensureCsrfToken: action,
+      handle401: action,
+      fetchUserId: action,
     });
 
     this.initializeAuth();
@@ -29,6 +35,7 @@ class AutenticaStore {
 
   login({ username, token, expirationTime }: IUsuario) {
     console.log("Login attempt:", { username, token, expirationTime });
+    this.sessaoExpirada = false;
     this.setAuthData(username, token, expirationTime);
   }
 
@@ -43,7 +50,11 @@ class AutenticaStore {
     this.usuario = { username, token, expirationTime };
     localStorage.setItem('token', token);
     localStorage.setItem('username', username);
-    localStorage.setItem('expirationTime', expirationTime.toString()); 
+    localStorage.setItem('expirationTime', expirationTime.toString());
+
+    setTimeout(() => {
+      this.checkSessionExpired();
+    }, expirationTime - Date.now());
   }
 
   clearAuthData() {
@@ -60,13 +71,13 @@ class AutenticaStore {
     const token = localStorage.getItem('token');
     const username = localStorage.getItem('username');
     const expirationTimeString = localStorage.getItem('expirationTime');
-    const expirationTime = expirationTimeString ? parseInt(expirationTimeString, 10) : 0; 
+    const expirationTime = expirationTimeString ? parseInt(expirationTimeString, 10) : 0;
 
-    if (token && username && expirationTime > Date.now()) { 
+    if (token && username && expirationTime > Date.now()) {
       this.setAuthData(username, token, expirationTime);
-      this.ensureCsrfToken();  // Garante que o CSRF token está definido
+      this.ensureCsrfToken();
     } else {
-      this.clearAuthData(); 
+      this.clearAuthData();
     }
   }
 
@@ -89,17 +100,42 @@ class AutenticaStore {
     }
   }
 
+  checkSessionExpired() {
+    if (this.usuario.expirationTime <= Date.now()) {
+      this.handle401();
+    }
+  }
+
+  handle401() {
+    this.clearAuthData();
+    this.sessaoExpirada = true;
+  }
+
   refreshToken = async () => {
     console.log("Refreshing token for user:", this.usuario.username);
     try {
       const response = await httpV2.post('/refresh-token');
-      const { newToken, newExpirationTime } = response.data; 
+      const { newToken, newExpirationTime } = response.data;
       this.setAuthData(this.usuario.username, newToken, newExpirationTime);
       console.log("Token refreshed successfully:", { newToken, newExpirationTime });
     } catch (error) {
       console.error('Error refreshing token:', error);
-      this.logout();
-      this.setSessaoExpirada(true);
+      this.handle401();
+    }
+  }
+
+  fetchUserId = async (identifier: string): Promise<number | null> => {
+    try {
+      const response = await httpV2.get(`/users/?search=${identifier}`);
+      console.log('Resultado da busca do usuário:', response.data.results);
+      const user = response.data.results.find((u: IUsuario) =>
+        u.username.toLowerCase() === identifier.toLowerCase()
+      );
+      console.log('Usuário encontrado:', user);
+      return user ? user.id : null;
+    } catch (error) {
+      console.error('Error fetching user ID:', error);
+      return null;
     }
   }
 

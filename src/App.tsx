@@ -38,13 +38,10 @@ const App: React.FC = observer(() => {
             <Route path="card" element={<AdministracaoCard />} />
             <Route path="card/novo" element={<FormularioCard />} />
             <Route path="card/:id" element={<FormularioCard />} />
-
             <Route path="card/individual" element={<CardIndividual />} />
-
             <Route path="kids" element={<AdministracaoKids />} />
             <Route path="kids/novo" element={<FormularioKids />} />
             <Route path="kids/:id" element={<FormularioKids />} />
-
             <Route path="kids/individual" element={<KidIndividual />} />
           </Route>
         </Route>
