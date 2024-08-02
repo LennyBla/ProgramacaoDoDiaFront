@@ -1,6 +1,6 @@
 import axios from "axios";
 import Cookies from 'js-cookie';
-import autenticaStore from '../stores/autentica.store'; 
+import autenticaStore from '../stores/autentica.store';
 
 const httpV1 = axios.create({
     baseURL: 'https://programacaododia-back.vercel.app/api/v1/',
@@ -35,15 +35,17 @@ httpV2.interceptors.response.use(
     (response) => response,
     async (error) => {
         if (error.response && error.response.status === 401) {
-            try {
-                await autenticaStore.refreshToken();
-                const config = error.config;
-                config.headers['Authorization'] = `Bearer ${autenticaStore.usuario.token}`;
-                return axios.request(config);
-            } catch (refreshError) {
-                autenticaStore.logout();
-                autenticaStore.setSessaoExpirada(true);
-                return Promise.reject(refreshError);
+            if (!autenticaStore.sessaoExpirada) {
+                try {
+                    await autenticaStore.refreshToken();
+                    const config = error.config;
+                    config.headers['Authorization'] = `Bearer ${autenticaStore.usuario.token}`;
+                    return axios.request(config);
+                } catch (refreshError) {
+                    autenticaStore.logout();
+                    autenticaStore.setSessaoExpirada(true);
+                    return Promise.reject(refreshError);
+                }
             }
         }
 
