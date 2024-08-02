@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { observer } from 'mobx-react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Home from './paginas/Home';
 import AdministracaoCard from './paginas/Administracao/Fromulario/CardAdm/AdministracaoCard';
 import FormularioCard from './paginas/Administracao/Fromulario/CardAdm/FormularioCard';
@@ -18,20 +18,12 @@ import SessaoExpiradaDialog from './stores/SessaoExpiradaDialog';
 import autenticaStore from './stores/autentica.store';
 
 const App: React.FC = observer(() => {
-  const navigate = useNavigate();
-
   const handleCloseSessaoExpirada = () => {
     console.log('Session expired dialog closed, logging out');
     autenticaStore.setSessaoExpirada(false);
     autenticaStore.logout();
-    navigate('/login'); // Redirecionar para a página de login
+    window.location.href = '/login'; // Redirecionar para a página de login ao fechar a caixa de diálogo
   };
-
-  useEffect(() => {
-    if (!autenticaStore.estaAutenticado && !autenticaStore.sessaoExpirada) {
-      navigate('/login');
-    }
-  }, [autenticaStore.estaAutenticado, autenticaStore.sessaoExpirada, navigate]);
 
   return (
     <>

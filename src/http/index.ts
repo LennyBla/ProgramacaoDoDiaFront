@@ -56,12 +56,16 @@ httpV2.interceptors.response.use(
                 } catch (refreshError) {
                     console.error('Error refreshing token', refreshError);
                     autenticaStore.setSessaoExpirada(true); // Marcar a sessão como expirada
+                    // Redirecionar para a página de login após sessão expirar
+                    window.location.href = '/login';
                     return Promise.reject(refreshError);
                 }
             }
         }
         if (autenticaStore.sessaoExpirada) {
-            console.log('Session has expired, showing session expired dialog');
+            console.log('Session has expired, redirecting to login');
+            // Redirecionar para a página de login
+            window.location.href = '/login';
         }
         return Promise.reject(error);
     }
