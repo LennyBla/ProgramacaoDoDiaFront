@@ -16,51 +16,39 @@ httpV2.interceptors.request.use((config) => {
         config.headers = {};
     }
 
-    // Adiciona o token JWT ao cabeçalho de autorização
     const token = autenticaStore.usuario.token;
     if (token) {
         config.headers['Authorization'] = `Bearer ${token}`;
-        console.log("Added JWT token to request:", token);
     }
 
-    // Set CSRF token
     const csrfToken = Cookies.get('csrftoken');
     if (csrfToken) {
         config.headers['X-CSRFToken'] = csrfToken;
-        console.log("Added CSRF token to request:", csrfToken);
     } else {
         console.error('CSRF token is missing');
     }
 
     return config;
-}, (error) => {
-    console.error("Request error:", error);
-    return Promise.reject(error);
 });
 
 httpV2.interceptors.response.use(
-    (response) => {
-        console.log("Response received:", response);
-        return response;
-    },
+    (response) => response,
     async (error) => {
         if (error.response && error.response.status === 401) {
-            console.warn("401 Unauthorized, attempting to refresh token");
-            try {
-                await autenticaStore.refreshToken();
-                const config = error.config;
-                config.headers['Authorization'] = `Bearer ${autenticaStore.usuario.token}`;
-                console.log("Retrying request with new token:", autenticaStore.usuario.token);
-                return axios.request(config);
-            } catch (refreshError) {
-                console.error("Error refreshing token:", refreshError);
-                autenticaStore.logout();
-                autenticaStore.setSessaoExpirada(true);
-                return Promise.reject(refreshError);
+            if (!autenticaStore.sessaoExpirada) {
+                try {
+                    await autenticaStore.refreshToken();
+                    const config = error.config;
+                    config.headers['Authorization'] = `Bearer ${autenticaStore.usuario.token}`;
+                    return axios.request(config);
+                } catch (refreshError) {
+                    autenticaStore.logout();
+                    autenticaStore.setSessaoExpirada(true);
+                    return Promise.reject(refreshError);
+                }
             }
         }
 
-        console.error("Response error:", error);
         return Promise.reject(error);
     }
 );
