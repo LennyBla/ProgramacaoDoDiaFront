@@ -7,6 +7,8 @@ import 'swiper/swiper-bundle.css';
 import { Pagination, Autoplay } from 'swiper/modules';
 import styles from "./Slide.module.scss";
 import slide from './Slide.svg'
+import slide0 from './Slide0.svg'
+
 function Slide(){
     return (
         <Swiper className={styles.mySwiper}
@@ -21,6 +23,8 @@ function Slide(){
           modules={[Pagination, Autoplay]} 
         >
           <SwiperSlide><img src={slide} alt="Slide 1" /></SwiperSlide>
+          <SwiperSlide><img src={slide0} alt="Slide 2" /></SwiperSlide>
+
           
           {/*<SwiperSlide><img src={slide} alt="Slide 2" /></SwiperSlide>
           <SwiperSlide><img src={slide} alt="Slide 3" /></SwiperSlide>
