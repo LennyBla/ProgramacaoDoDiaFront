@@ -2,4 +2,5 @@
 deployment:
   tasks:
     - /opt/cpanel/ea-nodejs16/bin/npm install
+    - /opt/cpanel/ea-nodejs16/bin/npm run clean   
     - /opt/cpanel/ea-nodejs16/bin/npm run build
